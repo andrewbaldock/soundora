@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Soundora</title>
+		<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <meta name="description" content="Soundora is a Pandora clone built using the SoundCloud API">
+    <meta name="keywords" content="SoundCloud, Pandora" />
+    <link rel="canonical" href="http://andrewbaldock.com/soundora" />
+    <!-- Facebook -->
+    <meta property="og:title" content="Soundora is SoundCloud Radio">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://andrewbaldock.com/soundora">
+    <meta property="og:image" content="http://andrewbaldock.com/soundora/img/sitepreview.png">
+    <meta property="og:site_name" content="Soundora">
+    <meta property="og:description" content="Soundora is a Pandora clone built using the SoundCloud API">
+    <!-- end Facebook -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+	<link rel="image_src" type="text/css" href="/img/sitepreview.png">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="../css/longshadow.css">
+	<script>
+		/* if (window.location.protocol != "https:") {
+    	window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
+    } */
+		function formHandler(e){
+			return false;
+		}
+		function loginHandler(e){
+			var loginuser = $('#login-email').val();
+			//HERE
+			return false;
+		}
+		</script>
+	<script data-main="js/app/startup" src="js/lib/require.js"></script>
+</head>
+<body>
+ 	<div id="tippytop">
+ 		<a href="#" id="joinlink">Join</a> or 
+ 		<a href="#" id="loginlink">Login</a> 
+ 	</div>
+  								
+	<header>
+		<div id="newuserpanel">
+			<form name="createuser" action="" id="createuser" onsubmit="return formHandler();">
+				<input id="email" class="field px20" type="text" value="" placeholder="email"><br><input class="field px20" id="name" type="text" value="" placeholder="name"><br><button type="button">join</button>
+				<br><p class="disclaimer">* I won't sell your email to spammers, pirates or the NSA</p><br><br>
+			</form>
+		</div>
+	
+		<div id="loginpanel">
+			<form name="loginform" action="" id="loginform" onsubmit="return loginHandler();">
+				<input class="field px20"  id="login-email" type="text" value="" placeholder="email">    
+				<button type="button">login</button>
+				<p class="disclaimer"></p><br><br>
+			</form>
+		</div>
+	</header>
+  
+  <div id="main">
+    <h1 class="longshadow">Soundora</h1>
+    <p id="subtitle">soundcloud radio</p>
+
+    <div id="spinner"></div>    
+    <div id="thequery">
+    	<form name="search" action="" id="search" onsubmit="return formHandler();">
+      	<input class="field" id="query" type="text" value="nudisco technokut">
+      	<button type="submit"><i class="icon-search"></i></button>
+      </form>
+    </div>
+    
+  	
+    
+  </div>
+  
+    <div id="player-wrapper">
+    	<div id="player">
+    		<iframe id="widget" width="100%" height="120" scrolling="no" frameborder="no" seamless="seamless" src=""></iframe>
+    	</div>
+    </div>
+    
+    <div id="results">
+
+    </div>
+        <div id="pad" style="width:100%;display:block;height:100px;">&nbsp;</div>
+    
+    <footer>
+    	<div id="credits"><a href="/">Andrew Baldock</a> &copy; <script>var bestYearEvar = new Date().getFullYear();document.write(bestYearEvar)</script> </div>
+    </footer>
+
+  </body>
+</html>
