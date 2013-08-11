@@ -1,3 +1,5 @@
+/* github.com/andrewbaldock/soundora */
+
 define(["jquery", "json2"], function($) {
   aB.fn.df_auth = function() {
       console.log('dreamfactory loaded');
@@ -42,5 +44,4 @@ define(["jquery", "json2"], function($) {
     	});
     	
   };
-  aB.fn.df_auth();
 });

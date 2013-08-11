@@ -1,93 +1,144 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Soundora</title>
-		<meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
-    <meta name="description" content="Soundora is a Pandora clone built using the SoundCloud API">
-    <meta name="keywords" content="SoundCloud, Pandora" />
-    <link rel="canonical" href="http://andrewbaldock.com/soundora" />
-    <!-- Facebook -->
-    <meta property="og:title" content="Soundora is SoundCloud Radio">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="http://andrewbaldock.com/soundora">
-    <meta property="og:image" content="http://andrewbaldock.com/soundora/img/sitepreview.png">
-    <meta property="og:site_name" content="Soundora">
-    <meta property="og:description" content="Soundora is a Pandora clone built using the SoundCloud API">
-    <!-- end Facebook -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-	<link rel="image_src" type="text/css" href="/img/sitepreview.png">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<link rel="stylesheet" type="text/css" href="../css/longshadow.css">
-	<script>
-		/* if (window.location.protocol != "https:") {
-    	window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
-    } */
-		function formHandler(e){
-			return false;
-		}
-		function loginHandler(e){
-			var loginuser = $('#login-email').val();
-			//HERE
-			return false;
-		}
-		</script>
-	<script data-main="js/app/startup" src="js/lib/require.js"></script>
+    <title>Soundora</title>
+    <!-- github.com/andrewbaldock/soundora -->
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport">
+    <meta content="Soundora is a Pandora clone built using the SoundCloud API" name="description">
+    <meta content="SoundCloud Radio" name="keywords">
+    <link href="http://andrewbaldock.com/soundora" rel="canonical">
+    <link href="/img/sitepreview.png" rel="image_src" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link href="../css/longshadow.css" rel="stylesheet" type="text/css">
+    <script data-main="js/app/startup" src="js/lib/require.js"></script>
 </head>
 <body>
- 	<div id="tippytop">
- 		<a href="#" id="joinlink">Join</a> or 
- 		<a href="#" id="loginlink">Login</a> 
- 	</div>
-  								
-	<header>
-		<div id="newuserpanel">
-			<form name="createuser" action="" id="createuser" onsubmit="return formHandler();">
-				<input id="email" class="field px20" type="text" value="" placeholder="email"><br><input class="field px20" id="name" type="text" value="" placeholder="name"><br><button type="button">join</button>
-				<br><p class="disclaimer">* I won't sell your email to spammers, pirates or the NSA</p><br><br>
-			</form>
-		</div>
-	
-		<div id="loginpanel">
-			<form name="loginform" action="" id="loginform" onsubmit="return loginHandler();">
-				<input class="field px20"  id="login-email" type="text" value="" placeholder="email">    
-				<button type="button">login</button>
-				<p class="disclaimer"></p><br><br>
-			</form>
-		</div>
-	</header>
-  
-  <div id="main">
-    <h1 class="longshadow">Soundora</h1>
-    <p id="subtitle">soundcloud radio</p>
-
-    <div id="spinner"></div>    
-    <div id="thequery">
-    	<form name="search" action="" id="search" onsubmit="return formHandler();">
-      	<input class="field" id="query" type="text" value="nudisco technokut">
-      	<button type="submit"><i class="icon-search"></i></button>
-      </form>
+    <div id="tippytop">
+    		<div id="logged-out">
+        	<a href="#" id="signin-link">Sign In</a> 
+        </div>
+        <div id="logged-in">
+        	<span id="username"></span>	
+        	<a href="#" id="logout" onclick="disconnectUser();">Logout</a>
+        </div>
     </div>
-    
-  	
-    
-  </div>
-  
+
+    <header>
+        <div id="signin-panel">
+        		<!-- googleplus-->
+            <span id="signinButton">
+							<span
+								class="g-signin"
+								data-callback="googCallback"
+								data-width="wide" 
+								data-theme="light"
+								data-clientid="881156022619.apps.googleusercontent.com"
+								data-cookiepolicy="http://andrewbaldock.com"
+								data-requestvisibleactions="http://schemas.google.com/AddActivity"
+								data-scope="https://www.googleapis.com/auth/plus.login">
+							</span>
+						</span>
+        </div>
+
+       
+    </header>
+
+    <div id="main">
+        <h1>Soundora</h1>
+        <p id="subtitle">soundcloud radio</p>
+        <div id="spinner"></div>
+        <div id="thequery">
+            <form action="" id="search" name="search" onsubmit=
+            "return formHandler();">
+                <input class="field" id="query" type="text" value= "" placeholder="song title, artist or genre">
+                <button type="submit">
+                	<em class="icon-search"></em>
+                </button>
+            </form>
+        </div>
+    </div>
+
     <div id="player-wrapper">
-    	<div id="player">
-    		<iframe id="widget" width="100%" height="120" scrolling="no" frameborder="no" seamless="seamless" src=""></iframe>
-    	</div>
+        <div id="player">
+            <iframe frameborder="no" height="120" id="widget" name="widget"
+            scrolling="no" seamless="seamless" src="" width="100%"></iframe>
+        </div>
     </div>
-    
-    <div id="results">
 
-    </div>
-        <div id="pad" style="width:100%;display:block;height:100px;">&nbsp;</div>
-    
+    <div id="results"></div>
+
+    <div id="pad">&nbsp;</div>
+
     <footer>
-    	<div id="credits"><a href="/">Andrew Baldock</a> &copy; <script>var bestYearEvar = new Date().getFullYear();document.write(bestYearEvar)</script> </div>
+        <div id="credits">
+            <a href="http://andrewbaldock.com">Andrew Baldock</a>
+            © <span id="yr">2013</span>
+        </div>
     </footer>
-
-  </body>
+    
+  	<script>
+        //copyright date
+				var gudYr = new Date().getFullYear();
+				document.getElementById('yr').innerHTML = gudYr;
+				
+				// asyc g+ signin init
+				(function() {
+					 var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+					 po.src = 'https://apis.google.com/js/client:plusone.js';
+					 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+				})();
+				
+				// g+ callback
+				function googCallback(authResult) {
+					if (authResult['access_token']) {
+						// Successfully authorized
+						// Hide the sign-in button now that the user is authorized, for example:
+						//document.getElementById('signinButton').setAttribute('style', 'display: none');
+						console.log(authResult.id_token);
+						$('#logged-out').hide();
+						$('#signin-panel').hide();
+						$('#logged-in').show();
+				
+					} else if (authResult['error']) {
+						
+						// There was an error.
+						// Possible error codes:
+						//   "access_denied" - User denied access to your app
+						//   "immediate_failed" - Could not automatically log in the user
+						// console.log('There was an error: ' + authResult['error']);
+						$('#logged-in').hide();
+						$('#logged-out').show();
+					}
+				}  
+				
+				function disconnectUser(access_token) {
+					var revokeUrl = 'https://accounts.google.com/o/oauth2/revoke?token=' + access_token;
+					$.ajax({
+						type: 'GET',
+						url: revokeUrl,
+						async: false,
+						contentType: "application/json",
+						dataType: 'jsonp',
+						success: function(nullResponse) {
+							// Do something now that user is disconnected
+							// The response is always undefined.
+								$('#logged-in').hide();
+								$('#signin-panel').hide();
+								$('#logged-out').show();
+						},
+						error: function(e) {
+							// Handle the error
+							// console.log(e);
+							// You could point users to manually disconnect if unsuccessful
+							// https://plus.google.com/apps
+							
+						}
+					});
+				} 
+				
+    </script>
+    
+</body>
 </html>

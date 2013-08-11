@@ -1,3 +1,5 @@
+/* github.com/andrewbaldock/soundora */
+
 // Place third party dependencies in the lib folder
 //
 // Configure loading modules from the lib directory,

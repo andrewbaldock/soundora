@@ -1,13 +1,16 @@
+/* github.com/andrewbaldock/soundora */
+		
 define(["jquery", "soundcloud", "player"], function($) {
-  aB.fn.ui = function(soundcloud) {
+  aB.fn.soundcloud = function(soundcloud) {
       require(['soundcloud'], function (soundcloud) {
       	console.log('soundcloud loaded');
       	
+      	//replaceAll function
       	String.prototype.replaceAll = function(str1, str2, ignore) {
    				return this.replace(new RegExp(str1.replace(/([\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g, function(c){return "\\" + c;}), "g"+(ignore?"i":"")), str2);
 				};
       	
-      		//Get URL Params
+      		//Get URL Params function
 				aB.fn.getUrlParam = function (paramName) {
 					paramName = paramName.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
 					var regexS = "[\\?&]" + paramName + "=([^&#]*)";
@@ -20,6 +23,7 @@ define(["jquery", "soundcloud", "player"], function($) {
 					}
 				};
 
+				//begin interaction
 				$('#thequery').slideDown();
 
       	$('#thequery button').click(function(soundcloud){
@@ -52,12 +56,14 @@ define(["jquery", "soundcloud", "player"], function($) {
 							
 							var sc_options = '&show_artwork=true&auto_play=true&show_comments=true&enable_api=true&sharing=true&color=00BCD3'
 							
+							// Show what track is currently playing
 							aB.fn.updatePlaying = function (trackId){
 								$('.track').removeClass('isPlaying');
 								var trkId = '#trk' + trackId;
 								$(trkId).addClass('isPlaying');
 							}
 						
+							// advance track
 							aB.fn.advanceTrack = function (){
 								console.log('advancing...');
 								$('.track').removeClass('isPlaying');
@@ -94,8 +100,6 @@ define(["jquery", "soundcloud", "player"], function($) {
 							
 							$('#thequery').fadeIn();
 
-							
-
 							//launch the player
 							require(['player'], function (player) {
 								if (aB.tracks.trk1.kind != undefined) {
@@ -109,43 +113,18 @@ define(["jquery", "soundcloud", "player"], function($) {
 									
 									var firstSong = '#trk' + aB.tracks.trk1.id;
 									$(firstSong).click();
-									
-									/*var newSoundUrl = 'http://api.soundcloud.com/tracks/' + aB.tracks.trk1.id;
-					
-									var iframe = document.querySelector('#widget');
-									iframe.src = 'https://w.soundcloud.com/player/?url=' + newSoundUrl + sc_options;
-									
-									var wIdget = SC.Widget(iframe);
-									wIdget.bind(SC.Widget.Events.FINISH, function(eventData) {
-											console.log('song has finished');
-											aB.fn.advanceTrack();
-											
-									}); */
-
-
-
 								 } else {
+								  // to do
 								 	alert('no results');
 								 }//end if
 							 });//end require;
-							
 							
 						}); // end SC.get			
   				
       	}); // end click
       	
 				//interesting random queries
-				aB.seeds = ['night drive',
-					'nudisco technokut',
-					'band of horses infinite',
-					'koda',
-					'her favorite song',
-					'trying to be cool',
-					'charles+dekire',
-					'bonobo first fires',
-					'aeroplane kimbra remix',
-					'inside my love disco',
-					'phoenix'];
+				aB.seeds = ['the pixies','dr dre', 'nine inch nails', 'wreckin cru oldschool', 'deadmau5 california love'];
 
 				var seed = aB.seeds[Math.floor(Math.random()*aB.seeds.length)]; // get a random item
 				$('#query').val(seed);
@@ -163,18 +142,12 @@ define(["jquery", "soundcloud", "player"], function($) {
       	//handle return key
       	$('input #query').on('keydown', function(event) { if (event.which == 13 || event.keyCode == 13) { e.preventDefault();$('#thequery button').click(); } });
       	
-      	$('#joinlink').click(function(e){
+      	$('#signin-link').click(function(e){
       		e.preventDefault;
-      		$('#loginpanel').hide('fastest');
-      		$('#newuserpanel').toggle('fastest');
+      		$('#signin-panel').toggle('fastest');
       	});
-      	$('#loginlink').click(function(e){
-      		e.preventDefault;
-      		$('#newuserpanel').hide('fastest');
-      		$('#loginpanel').toggle('fastest');
-      	});
+      	
       	
       });
   };
-  aB.fn.ui();
 });
