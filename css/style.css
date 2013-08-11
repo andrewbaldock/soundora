@@ -7,16 +7,28 @@
 html {
     font-family: 'Share', sans-serif;
     text-align: center;
-    background: url('../img/escheresque_ste_@2X.png') rgba(0, 172, 226, 0.74);
+    background: url('../img/escheresque_ste_@2X.png') #333;
     /* background: url('../img/XXXXXXX') rgba(0, 172, 226, 0.74); */
     /* background: url('../img/colourlovers-pattern-1243991-modernmusic-tweaked.gif') rgba(0, 172, 226, 0.74);  */
     /* background: url('../img/background-bluecircles.png') rgba(0, 172, 226, 0.74); */
     /* background: url('../img/background-purpcircles.png') #3D0E4C; */
     color: #979797;
+    padding:0px;
+    margin:0px;
+    height:100%;
 }
 
 body {
-    margin: 0px;
+    padding:0px;
+    margin:0px;
+    height:100%;
+}
+
+#container {
+		min-height: 100%;
+    position:relative;
+    text-align: center;
+    width:100%;
 }
 
 h1, h2, h3, h4, h5 {
@@ -100,14 +112,14 @@ button:hover {
 }
 
 #results {
-    display: inline-block;
-    width: 95%;
-    padding: 5%;
     display: none;
-    border-radius: 8px;
-    height: 100%;
-    margin-top: -25px;
-    padding-bottom: 80px;
+    padding-bottom: 100px;
+    padding-top:120px;
+}
+.pad {
+	height:50px;
+	width:100%;
+	display:block;
 }
 
 .track {
@@ -115,7 +127,6 @@ button:hover {
     width: 128px;
     background-color: rgba(0, 0, 0, 0.72);
     display: block;
-    float: left;
     margin: 8px;
     padding: 5px;
     font-family: tahoma,helvetica,ariel,sans-serif;
@@ -130,6 +141,12 @@ button:hover {
 
 .track-wrap {
     display: block;
+    height: 128px;
+    width: 128px;
+    float: left;
+    margin: 8px;
+    padding: 5px;
+    background-size: 0% 0%;
 }
 
 .track:hover {
@@ -201,20 +218,18 @@ button:active {
 
 #player-wrapper {
     display: none;
-    width: 100%;
-    background-color: #F5F5F5;
-    background: url('../img/background-gplaypattern.png');
-    margin-top: 30px;
-    height: 120px;
-    border-top: 5px solid pink;
-    border-bottom: 5px solid purple;
-    box-shadow: 0px 0px 20px #000;
+    width: 100%; 
+    height: 110px;
+    background-color:rgba(0, 172, 226,0.66);
 }
 
 #player {
     display: inline-block;
-    width: 80%;
+    width: 75%;
     height: 120px;
+    border-top: 2px solid rgba(0, 172, 226,0.76);
+
+    box-shadow: 0px 5px 20px #000;
 }
 
 header {
@@ -237,26 +252,35 @@ header {
 }
 
 footer {
-    position: fixed;
+    position: absolute;
     bottom: 0px;
     left: 0px;
     width: 100%;
-    height: 24px;
-    padding-top: 6px;
-    padding-bottom: 8px;
-    background-color: rgba(0, 172, 226, 0.54);
+    height: 80px;
 }
 
-footer div {
+footer #credits {
     font-family: 'Codystar', sans-serif;
     font-size: 15px;
     color: #ccc;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    height: 20px;
+    padding-top: 6px;
+    padding-bottom: 8px;
+    background-color: rgba(0, 172, 226,0.76);
 }
 
-#pad {
+#credits:hover a {
+	font-size:20px;
+}
+
+footer #pad {
     width: 100%;
     display: block;
-    height: 100px;
+    height: 50px;
 }
 #theuser img {
 	height:25px;

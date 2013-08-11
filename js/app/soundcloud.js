@@ -40,7 +40,8 @@ define(["jquery", "soundcloud", "player"], function($) {
 					
 
 					console.log('searching on ' + usrInput);
-					$('#results').html('').show();
+					
+					var $results = $('#results').html('').hide();
 
 					SC.get('/tracks', { q: usrInput }, function(result) {
 							console.log(result + ' ' + result.length);
@@ -49,9 +50,14 @@ define(["jquery", "soundcloud", "player"], function($) {
 							for (var i=0;i<result.length;i++){ 			
 								var track = result[i];
 								aB.tracks['trk' + (i+1)] = track; //push to global aB object
-
-								$('#results').append('<div class="track-wrap"  style="background-image:url(' + track.waveform_url + ');"><div class="track" style="background-image:url(' + track.artwork_url + ');" data-trk="' + (i+1) + '" id="trk' + track.id + '"><div class="text"><span>' + track.user.username + '</span><br><p>' + track.title + '</p></div></div></div>');
-							};
+								
+								$results.append(
+									'<div class="track-wrap" style="background-image:url(' + track.waveform_url + ');"><div class="track" style="background-image:url(' + track.artwork_url + ');" data-trk="' + (i+1) + '" id="trk' + track.id + '"><div class="text"><span>' + track.user.username + '</span><br><p>' + track.title + '</p></div></div></div>'
+								);
+								
+							}; //end for loop
+							
+							aB.resizeHandler();
 							
 							var sc_options = '&show_artwork=true&auto_play=true&show_comments=true&enable_api=true&sharing=true&color=00BCD3'
 							
@@ -104,7 +110,11 @@ define(["jquery", "soundcloud", "player"], function($) {
 								if (aB.tracks.trk1.kind != undefined) {
 									//expose the player
 									$('#player-wrapper').show('slowest');
-									console.log('readying track ' + aB.tracks.trk1.id);						
+									console.log('readying track ' + aB.tracks.trk1.id);
+									
+									
+    							$("#player-wrapper").sticky({topSpacing:0});
+						
 
 									//play first result
 									aB.fn.updatePlaying(aB.tracks.trk1.id);
