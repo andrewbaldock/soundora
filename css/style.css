@@ -171,6 +171,11 @@ button:hover {
     display: none;
 }
 
+#user img {
+	height:40px;
+	width:40px;
+}
+
 a {
     color: #57D4EC;
     text-decoration: none;
