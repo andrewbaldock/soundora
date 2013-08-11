@@ -19,9 +19,17 @@
     		<div id="logged-out">
         	<a href="#" id="signin-link">Sign In</a> 
         </div>
+        
         <div id="logged-in">
-        	<div id="user"></div>	
-        	<a href="#" id="logout" onclick="disconnectUser();">Logout</a>
+        	<div id="user-wrapper">
+						<div id="user">
+						
+						</div>	
+						<div id="user-dropdown">
+							<span id="username"></span>
+							<a href="#" id="logout" onclick="disconnectUser();">Logout <em class="icon-logout"></em></a>
+						</div>
+        	</div>
         </div>
     </div>
 
@@ -116,14 +124,16 @@
 								'userId': 'me'
 							});
 							request.execute(function(resp) {
-								/*var heading = document.createElement('span');
-								var image = document.createElement('img');
-								image.src = resp.image.url;
-								heading.appendChild(image);
-								heading.appendChild(document.createTextNode(resp.displayName));
-								document.getElementById('user').appendChild(heading); */
-								var theoutput = '<div id="theuser"><img src="' + resp.image.url + '"><span>' + resp.displayName + '</span></div>';
-								if( $('#theuser').length == 0) {$('#user').html(theoutput);}
+								goog.user = resp;
+								if (typeof resp.image.url != 'undefined') {
+									var theoutput = '<div id="theuser"><img class="userimg" src="' + resp.image.url + '"></div>';
+								} else {
+									var theoutput = '<div id="theuser"><em class="userimg" class="icon-search"></em></div>';
+								}
+								if( $('#theuser').length == 0) {
+									$('#username').html(resp.displayName);
+									$('#user').html(theoutput)
+								}
 							});
 						});
 					
@@ -188,6 +198,7 @@
 						}
 					});
 				} 
+				
 				
     </script>
     

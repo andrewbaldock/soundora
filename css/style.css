@@ -153,7 +153,7 @@ button:hover {
     padding: 10px;
     position: absolute;
     top: 0px;
-    left: 15px;
+    right: 15px;
     font-family:helvetica;
 }
 
@@ -169,11 +169,6 @@ button:hover {
 #loginpanel {
     margin-top: 70px;
     display: none;
-}
-
-#user img {
-	height:40px;
-	width:40px;
 }
 
 a {
@@ -262,4 +257,40 @@ footer div {
     width: 100%;
     display: block;
     height: 100px;
+}
+#theuser img {
+	height:25px;
+	width:25px;
+}
+#user-dropdown {
+	display:none;
+}
+#user-wrapper {
+	text-align:right;
+	margin-top:-3px;
+	margin-right:-1px;
+	padding:10px;
+}
+#user-wrapper span {
+	display:block;
+	border-bottom:solid 1px #555;
+	margin-bottom:5px;
+}
+#user-wrapper a {
+	display:block;
+	width:100%;
+}
+
+
+#user-wrapper:hover #user-dropdown {
+	display:block;
+	background-color:rgba(0, 0, 0, 0.35);
+	padding:10px;
+	margin-top: -3px;
+}
+
+em#userimg {
+    color: #0C8BB3;
+    font-size: 28px;
+    line-height: 28px;
 }
