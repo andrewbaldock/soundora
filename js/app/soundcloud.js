@@ -3,7 +3,6 @@
 define(["jquery", "soundcloud", "player"], function($) {
   aB.fn.soundcloud = function(soundcloud) {
       require(['soundcloud'], function (soundcloud) {
-      	console.log('soundcloud loaded');
       	
       	//replaceAll function
       	String.prototype.replaceAll = function(str1, str2, ignore) {
@@ -147,7 +146,7 @@ define(["jquery", "soundcloud", "player"], function($) {
       		$('#signin-panel').toggle('fastest');
       	});
       	
-      	
+      	console.log('soundcloud loaded');
       });
   };
 });

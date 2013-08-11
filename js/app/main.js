@@ -1,11 +1,12 @@
 /* github.com/andrewbaldock/soundora */
 
-require(["jquery", "easing", "jquery.beta", "underscore", "app/df_auth", "json2", "soundcloud", "player",  "backbone", "app/soundcloud" ], function($) {
+define(["jquery", "jquery.easing", "underscore", "app/df_auth", "json2", "soundcloud", "player",  "backbone", "app/soundcloud" ], function($) {
     //the jquery.alpha.js and jquery.beta.js plugins have been loaded.
     $(function() {
       
-      aB.fn.df_auth();
       aB.fn.soundcloud();
+      aB.fn.df_auth();
+      aB.fn.easing();
       
 			//show utils are loaded in console.
 			if(typeof $ !='undefined') {console.log("jquery loaded");}

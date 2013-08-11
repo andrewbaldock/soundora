@@ -2,7 +2,6 @@
 
 define(["jquery", "json2"], function($) {
   aB.fn.df_auth = function() {
-      console.log('dreamfactory loaded');
       
       // authenticate dreamfactory.com cloud app backend with system user
       
@@ -11,10 +10,10 @@ define(["jquery", "json2"], function($) {
         url: 'https://dsp-song.cloud.dreamfactory.com/rest/user/session?app_name=soundora',
         dataType: "json",
         contentType: "application/json",
-        data: JSON.stringify({email:'andrewbaldock@yahoo.com',password:'s0und0r4'}),
+        data: JSON.stringify({email:'andrewbaldock@yahoo.com',password:___._+'0r4'}),
 
         success: function (response) {
-        		console.log("got session id from dreamfactory:" + response.session_id);
+        		console.log("dreamfactory authenticated");
         		aB.sessionId = response.session_id;
         		
         		//now load users
@@ -43,5 +42,6 @@ define(["jquery", "json2"], function($) {
         
     	});
     	
+    	console.log('dreamfactory loaded');
   };
 });

@@ -79,6 +79,12 @@
     </footer>
     
   	<script>
+
+  			// handle forms
+  			function formHandler(e){
+					return false;
+				}
+  	
         //copyright date
 				var gudYr = new Date().getFullYear();
 				document.getElementById('yr').innerHTML = gudYr;
@@ -96,7 +102,7 @@
 						// Successfully authorized
 						// Hide the sign-in button now that the user is authorized, for example:
 						//document.getElementById('signinButton').setAttribute('style', 'display: none');
-						console.log(authResult.id_token);
+						console.log('google authenticated');
 						$('#logged-out').hide();
 						$('#signin-panel').hide();
 						$('#logged-in').show();
