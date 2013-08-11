@@ -116,12 +116,14 @@
 								'userId': 'me'
 							});
 							request.execute(function(resp) {
-								var heading = document.createElement('span');
+								/*var heading = document.createElement('span');
 								var image = document.createElement('img');
 								image.src = resp.image.url;
 								heading.appendChild(image);
 								heading.appendChild(document.createTextNode(resp.displayName));
-								document.getElementById('user').appendChild(heading);
+								document.getElementById('user').appendChild(heading); */
+								var theoutput = '<div id="theuser"><img src="' + resp.image.url + '"><span>' + resp.displayName + '</span></div>';
+								if( $('#theuser').length == 0) {$('#user').html(theoutput);}
 							});
 						});
 					
