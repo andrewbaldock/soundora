@@ -1,6 +1,6 @@
 /* github.com/andrewbaldock/soundora */
 		
-define(["jquery", "soundcloud", "player", "app/df_auth",], function($) {
+define(["jquery", "soundcloud", "player", "app/df_auth"], function($) {
   aB.fn.soundcloud = function(soundcloud) {
       require(['soundcloud'], function (soundcloud) {
       	
@@ -33,13 +33,17 @@ define(["jquery", "soundcloud", "player", "app/df_auth",], function($) {
       		aB.tracks = {};
       		aB.tracks.played = 0;
       		
+      		//fire up soundcloud
       		SC.initialize({
     				client_id: '3b56bf42a48bcfe2379a7950bc9dcf95',
     				redirect_uri: "http://andrewbaldock.com/soundora/callback.html"
   				});
 					
-
 					console.log('searching on ' + usrInput);
+					//dreamfactory save search 
+					if(aB.dfconnect == true && aB.loggedin == true) {
+						aB.fn.df_auth.saveSearch(usrInput);
+					}
 					
 					var $results = $('#results').html('').hide();
 
@@ -116,10 +120,11 @@ define(["jquery", "soundcloud", "player", "app/df_auth",], function($) {
 								if (aB.tracks.trk1.kind != undefined) {
 									//expose the player
 									$('#player-wrapper').show('slowest');
+									$('body').addClass('inplay');
 									console.log('readying track ' + aB.tracks.trk1.id);
 									
 									
-    							$("#player-wrapper").sticky({topSpacing:0});
+    							$("#player-wrapper").sticky({topSpacing:50});
 						
 
 									//play first result

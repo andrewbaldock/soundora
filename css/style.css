@@ -174,6 +174,10 @@ button:hover {
     font-family:helvetica;
 }
 
+.inplay #tippytop {
+	z-index:5;
+}
+
 #logged-in {
 	display:none;
 }
@@ -215,20 +219,61 @@ button:active {
     width: 100%;
     margin-top: -30px;
 }
+.inplay #main {
+    background-color:rgba(0, 159, 209, 1.0);
+    height:50px;
+    text-align:left;
+    position:fixed;
+}
 
+.inplay #main h1{
+	font-size: 40px!important;
+	float: left;
+	margin-right: 20px;
+	margin-left: 17px;
+	color: #fff;
+	margin-top: -23px;
+}
+
+.inplay #main #subtitle{
+	letter-spacing:2px;
+	color:#ddd;
+	float: left;
+	margin-right: 20px;
+	margin-left: 17px;
+	margin-top: -23px;
+	font-size:20px;
+}
+
+.inplay #thequery {
+	display: block;
+	float: right;
+	margin-top: -50px;
+	margin-right:80px;
+}
+.inplay #query {
+	height: 24px!important;
+	font-size: 21px!important;
+	line-height: 22px!important;
+	color:rgba(0, 159, 209, 1.0);
+}
 #player-wrapper {
     display: none;
+    right: -10%;
     width: 100%; 
     height: 110px;
-    background-color:rgba(0, 172, 226,0.66);
+    /*background-color:rgba(0, 172, 226,0.66); */
+}
+.inplay #player-wrapper {
+	z-index:99999;
 }
 
 #player {
     display: inline-block;
-    width: 75%;
+    width: 97%;
     height: 120px;
-    border-top: 2px solid rgba(0, 172, 226,0.76);
-
+    /*border: 1px solid rgba(0, 172, 226,0.76);*/
+		background-color:rgba(0, 172, 226,0.66);
     box-shadow: 0px 5px 20px #000;
 }
 
@@ -252,7 +297,7 @@ header {
 }
 
 footer {
-    position: absolute;
+    position: fixed;
     bottom: 0px;
     left: 0px;
     width: 100%;
@@ -262,20 +307,18 @@ footer {
 footer #credits {
     font-family: 'Codystar', sans-serif;
     font-size: 15px;
-    color: #ccc;
+    color: #fff;
     position: absolute;
     bottom: 0px;
     left: 0px;
     width: 100%;
-    height: 20px;
-    padding-top: 6px;
+   	height: 10px;
+		padding-top: 2px;
     padding-bottom: 8px;
     background-color: rgba(0, 172, 226,0.76);
 }
 
-#credits:hover a {
-	font-size:20px;
-}
+
 
 footer #pad {
     width: 100%;
@@ -308,9 +351,15 @@ footer #pad {
 
 #user-wrapper:hover #user-dropdown {
 	display:block;
-	background-color:rgba(0, 0, 0, 0.35);
+	background-color:rgba(0, 0, 0, 1.00);
 	padding:10px;
 	margin-top: -3px;
+}
+.inplay #user-wrapper img {
+	height: 30px;
+	width: 30px;
+	margin-top: -5px;
+	margin-right: -11px;
 }
 
 em#userimg {
@@ -344,3 +393,44 @@ em#userimg {
 #ratings:hover #thumbsup {
 	color:green!important;
 }
+
+#leftpanel {padding-top:30px;width:20%;height:2000px;float:left;display:block;background-color:rgba(0, 159, 209, 1.0);display:none;}
+.inplay #leftpanel {display:block!important;}
+#rightpanel {width:80%;float:right;display:block;}
+.inplay #rightpanel {margin-top:40px;}
+
+#savedsearches {
+
+}
+
+#savedsearches h3{
+	font-family:helvetica;	
+	color:#eee!important;
+	width:100%;
+	margin-bottom:5px;
+	display:block;
+	background-color:rgba(0, 0, 0, 0.34);
+	padding:5px 0px;
+}
+
+.asearch {
+	display: block;
+border-radius: 3px;
+border: 1px rgba(0, 0, 0, 0.18) solid;
+padding: 6px;
+margin-bottom: -2px;
+width: 85%;
+margin-left: 5px;
+color: #E6E6E6;
+font-family: helvetica;
+font-size: 12px;
+background-color: rgba(2, 106, 139, 0.64);
+text-align: left;
+padding-left: 11px;
+}
+	
+.asearch:hover {
+	background-color:rgba(0, 159, 209, 1.0)
+}
+	
+	

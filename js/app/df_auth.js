@@ -5,6 +5,62 @@ define(["jquery", "json2"], function($) {
   
   		var baseurl = "https://dsp-song.cloud.dreamfactory.com/rest";
   		var apikey = '?app_name=soundora';
+  		
+  		
+  		aB.fn.df_auth.saveSearch =  function(searchterm){
+  				//check for dupes
+  				var isdupe = false;
+  				if(aB.searchcount > 0) {
+  					for (var i=0;i<aB.searchcount;i++){ 
+  						var aterm = aB.searches.record[i].query;
+  						if (searchterm == aterm) {
+  							isdupe=true;
+  							console.log('this search exists in the db');
+  							return;
+  						}
+  					}
+  				};
+  				if(isdupe==false){console.log('saving new search');}
+					var item = {"record":[{"userid":aB.dfrecid,"query":searchterm}]};
+					$.ajax({
+							dataType:'json',
+							type : "POST",
+							url:baseurl + '/db/userSearches' + apikey,
+							data:JSON.stringify(item),
+							cache:false,
+							processData: false,
+							success:function (response) {
+									
+									console.log('dreamfactory: search saved');
+									aB.dfconnect = true;
+							},
+							error: function(response) {
+									$('#itemname').val('');
+									console.log("There was an error saving the search.");
+							},
+							beforeSend: function (xhr) {
+								xhr.setRequestHeader('X-DreamFactory-Session-Token', aB.sessionId);
+							}
+					});
+							
+			};
+			
+			function exposeSearches() {
+
+				for (var i=0;i<aB.searchcount;i++){ 
+					var search = aB.searches.record[i].query;
+					$('#savedsearches').append('<a class="asearch" href="#">' + search + '</a>');
+				}; // end loop 
+				
+				//make them clickable
+				$('.asearch').click(function(){
+					var text = this.text;
+					$('#player-wrapper').hide();
+					$('#query').val(text);
+					$('#thequery button').click();
+				});
+			}
+  		
       
       function getSearches(dfuserid){
         		$.ajax({
@@ -15,7 +71,11 @@ define(["jquery", "json2"], function($) {
 							success: function (response) {
 								console.log('got searches for user' + dfuserid);
 								aB.searches = response;
-								console.log(aB.searches);
+								aB.searchcount = aB.searches.record.length;
+								console.log('searches found ' + aB.searchcount);
+								console.log(aB.searches.record);
+								//show the searches
+								exposeSearches();
 							},
 							error: function (response, textStatus, xError) {
 								console.log(response);
@@ -60,7 +120,7 @@ define(["jquery", "json2"], function($) {
         data: JSON.stringify({email:'andrewbaldock@yahoo.com',password:___._+'0r4'}),
 
         success: function (response) {
-        		console.log("dreamfactory authenticated");
+        		console.log("dreamfactory loaded");
         		aB.sessionId = response.session_id;
         		
 						// load up users
@@ -98,15 +158,21 @@ define(["jquery", "json2"], function($) {
 								};
 							
 								if(userfound == true) {			
-									//load up user searches right here
 									aB.dfconnect = true;
+									//load up user searches right here
 									getSearches(aB.dfrecid);
 									
 								} else {
-									//create a new user here
-									console.log('make a new user here');
-									addUser(aB.username,aB.userid);
+									//create a new user here if socialid exists
+									if(aB.userid =='none') {
+										console.log('user not logged in');
+									} else {
+										console.log('creating new dreamfactory userid');
+										addUser(aB.username,aB.userid);
+									}
 								};
+								//clear out unneeded users
+								aB.users = '';
 							// end success
 							},
 							error: function (response, textStatus, xError) {
@@ -125,7 +191,6 @@ define(["jquery", "json2"], function($) {
         } 
         
     	});
-    	
-    	console.log('dreamfactory loaded');
+    
   };
 });

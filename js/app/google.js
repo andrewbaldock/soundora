@@ -38,6 +38,8 @@ function handleAuthResult(authResult) {
 				aB.usertype="google";
 				aB.userid='google'+goog.user.id;
 				aB.username=goog.user.displayName;
+				// attach dreamfactory database
+				aB.fn.df_auth();
 			});
 		});
 	
@@ -63,7 +65,7 @@ function googCallback(authResult) {
 		$('#logged-in').show();
 		goog.token = authResult.access_token;
 		gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true}, handleAuthResult);
-
+		
 	} else if (authResult['error']) {
 		
 		// There was an error.
