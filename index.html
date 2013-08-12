@@ -8,6 +8,8 @@
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport">
     <meta content="Soundora is a Pandora clone built using the SoundCloud API" name="description">
     <meta content="SoundCloud Radio" name="keywords">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+		<link rel="icon" href="favicon.ico" type="image/x-icon">
     <link href="http://andrewbaldock.com/soundora" rel="canonical">
     <link href="/img/sitepreview.png" rel="image_src" type="text/css">
     <link href="css/style.css" rel="stylesheet" type="text/css">
@@ -58,7 +60,7 @@
 					<div id="thequery">
 							<form action="" id="search" name="search" onsubmit=
 							"return formHandler();">
-									<input class="field" id="query" type="text" value= "" placeholder="song title, artist or genre">
+									<input class="field" id="query" type="text" value= "" onfocus="this.select();" placeholder="song title, artist or genre">
 									<button type="submit">
 										<em class="icon-search"></em>
 									</button>
@@ -78,7 +80,7 @@
 			<footer>
 				<div id="pad"></div>
 				<div id="credits">
-						<a href="http://andrewbaldock.com">Andrew Baldock</a>
+						<a href="http://andrewbaldock.com" target="_blank">Andrew Baldock</a>
 						© <span id="yr">2013</span>
 				</div>
 			</footer>

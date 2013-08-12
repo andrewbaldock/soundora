@@ -33,7 +33,8 @@ define(["jquery", "jquery.easing", "underscore", "app/df_auth", "json2", "soundc
     		var results_new_x = aB.theseAreTheBreaks(win_x);
     		var player_new_x = results_new_x-42;
     		$results.y = $results.height();
-				console.log('results dimensions now: ' + results_new_x + 'x ' + $results.y + 'y');
+				// verbose!!
+				// console.log('results dimensions now: ' + results_new_x + 'x ' + $results.y + 'y');
 				$('#player').css('width',player_new_x+'px');
 				$results.css('height',$results.y+'px').css('width',results_new_x+'px');
 
