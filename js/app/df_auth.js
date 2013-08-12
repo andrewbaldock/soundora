@@ -30,9 +30,11 @@ define(["jquery", "json2"], function($) {
 								cache:false,
 								processData: false,
 								success:function (response) {
-									
+										
 										console.log('dreamfactory: search saved');
 										aB.dfconnect = true;
+										//aB.fn.df_auth();
+										
 								},
 								error: function(response) {
 										$('#itemname').val('');
@@ -45,7 +47,7 @@ define(["jquery", "json2"], function($) {
 					}		
 			};
 			
-			function exposeSearches() {
+			aB.fn.df_auth.exposeSearches = function() {
 				$('#savedsearches').html('<h3>Your Stations</h3>');
 				for (var i=0;i<aB.searchcount;i++){ 
 					var search = aB.searches.record[i].query;
@@ -62,20 +64,20 @@ define(["jquery", "json2"], function($) {
 			}
   		
       
-      function getSearches(dfuserid){
+      aB.fn.df_auth.getSearches = function(){
         		$.ajax({
 							type: "GET",
-							url: baseurl + '/db/userSearches' + apikey + '&filter=userID%3D' + dfuserid,
+							url: baseurl + '/db/userSearches' + apikey + '&filter=userID%3D' + aB.dfrecid,
 							dataType: "json",
 							contentType: "application/json",
 							success: function (response) {
-								console.log('got searches for user' + dfuserid);
+								console.log('got searches for user' + aB.dfrecid);
 								aB.searches = response;
 								aB.searchcount = aB.searches.record.length;
 								console.log('searches found ' + aB.searchcount);
 								console.log(aB.searches.record);
 								//show the searches
-								exposeSearches();
+								aB.fn.df_auth.exposeSearches();
 							},
 							error: function (response, textStatus, xError) {
 								console.log(response);
@@ -160,7 +162,7 @@ define(["jquery", "json2"], function($) {
 								if(userfound == true) {			
 									aB.dfconnect = true;
 									//load up user searches right here
-									getSearches(aB.dfrecid);
+									aB.fn.df_auth.getSearches();
 									
 								} else {
 									//create a new user here if socialid exists

@@ -139,8 +139,10 @@ define(["jquery", "soundcloud", "player", "app/df_auth"], function($) {
 								 }//end if
 							 });//end require;
 							
-						}); // end SC.get			
-  				
+						}); // end SC.get	
+						
+  					// reload searches
+  					aB.fn.df_auth();
       	}); // end click
       	
 				//interesting random queries
