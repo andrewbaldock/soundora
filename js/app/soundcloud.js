@@ -1,6 +1,6 @@
 /* github.com/andrewbaldock/soundora */
 		
-define(["jquery", "soundcloud", "player"], function($) {
+define(["jquery", "soundcloud", "player", "app/df_auth",], function($) {
   aB.fn.soundcloud = function(soundcloud) {
       require(['soundcloud'], function (soundcloud) {
       	
@@ -139,7 +139,7 @@ define(["jquery", "soundcloud", "player"], function($) {
       	}); // end click
       	
 				//interesting random queries
-				aB.seeds = ['the pixies','dr dre', 'nine inch nails', 'wreckin cru oldschool', 'deadmau5 california love'];
+				aB.seeds = ['the pixies','dr dre', 'interscope'];
 
 				var seed = aB.seeds[Math.floor(Math.random()*aB.seeds.length)]; // get a random item
 				$('#query').val(seed);
@@ -163,6 +163,8 @@ define(["jquery", "soundcloud", "player"], function($) {
       	});
       	
       	console.log('soundcloud loaded');
-      });
+      	
+      	
+      }); //end outer require
   };
 });

@@ -318,3 +318,29 @@ em#userimg {
     font-size: 28px;
     line-height: 28px;
 }
+
+#ratings {
+  width:100%;
+  display:none;
+}
+#ratings:hover {
+  display:block;
+}
+
+.thumb {
+	font-size:60px;
+	position:absolute;
+}
+#thumbsdown {
+	left:20px;
+}
+#ratings:hover #thumbsdown {
+	color:red!important;
+}
+
+#thumbsup {
+	right:20px;
+}
+#ratings:hover #thumbsup {
+	color:green!important;
+}
