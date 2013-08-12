@@ -13,40 +13,40 @@ define(["jquery", "json2"], function($) {
   				if(aB.searchcount > 0) {
   					for (var i=0;i<aB.searchcount;i++){ 
   						var aterm = aB.searches.record[i].query;
-  						if (searchterm == aterm) {
+  						if (searchterm === aterm) {
   							isdupe=true;
   							console.log('this search exists in the db');
   							return;
   						}
   					}
   				};
-  				if(isdupe==false){console.log('saving new search');}
-					var item = {"record":[{"userid":aB.dfrecid,"query":searchterm}]};
-					$.ajax({
-							dataType:'json',
-							type : "POST",
-							url:baseurl + '/db/userSearches' + apikey,
-							data:JSON.stringify(item),
-							cache:false,
-							processData: false,
-							success:function (response) {
+  				if(!isdupe){console.log('saving new search');
+						var item = {"record":[{"userid":aB.dfrecid,"query":searchterm}]};
+						$.ajax({
+								dataType:'json',
+								type : "POST",
+								url:baseurl + '/db/userSearches' + apikey,
+								data:JSON.stringify(item),
+								cache:false,
+								processData: false,
+								success:function (response) {
 									
-									console.log('dreamfactory: search saved');
-									aB.dfconnect = true;
-							},
-							error: function(response) {
-									$('#itemname').val('');
-									console.log("There was an error saving the search.");
-							},
-							beforeSend: function (xhr) {
-								xhr.setRequestHeader('X-DreamFactory-Session-Token', aB.sessionId);
-							}
-					});
-							
+										console.log('dreamfactory: search saved');
+										aB.dfconnect = true;
+								},
+								error: function(response) {
+										$('#itemname').val('');
+										console.log("There was an error saving the search.");
+								},
+								beforeSend: function (xhr) {
+									xhr.setRequestHeader('X-DreamFactory-Session-Token', aB.sessionId);
+								}
+						});
+					}		
 			};
 			
 			function exposeSearches() {
-
+				$('#savedsearches').html('<h3>Your Stations</h3>');
 				for (var i=0;i<aB.searchcount;i++){ 
 					var search = aB.searches.record[i].query;
 					$('#savedsearches').append('<a class="asearch" href="#">' + search + '</a>');

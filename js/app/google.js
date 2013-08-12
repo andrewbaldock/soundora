@@ -1,18 +1,18 @@
 /* GOOGLE SIGNIN
 */
 var goog={};
-var clientId = '881156022619';
-var apiKey = 'AIzaSyD4ZGwVyyh2RN40PFeifk6QecZvk3O-BGk';
-var scopes = 'https://www.googleapis.com/auth/plus.me https://www.googleapis.com/auth/userinfo.email';
+goog.clientId = '881156022619';
+goog.apiKey = 'AIzaSyD4ZGwVyyh2RN40PFeifk6QecZvk3O-BGk';
+goog.scopes = 'https://www.googleapis.com/auth/plus.me https://www.googleapis.com/auth/userinfo.email';
 
 // Use a button to handle authentication the first time.
 function handleClientLoad() {
-	gapi.client.setApiKey(apiKey);
+	gapi.client.setApiKey(goog.apiKey);
 	window.setTimeout(checkAuth,1);
 }
 
 function checkAuth() {
-	//gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true}, handleAuthResult);
+	//gapi.auth.authorize({client_id: goog.clientId, scope: goog.scopes, immediate: true}, handleAuthResult);
 }
 
 function handleAuthResult(authResult) {
@@ -64,7 +64,7 @@ function googCallback(authResult) {
 		$('#signin-panel').hide();
 		$('#logged-in').show();
 		goog.token = authResult.access_token;
-		gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true}, handleAuthResult);
+		gapi.auth.authorize({client_id: goog.clientId, scope: goog.scopes, immediate: true}, handleAuthResult);
 		
 	} else if (authResult['error']) {
 		

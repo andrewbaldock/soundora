@@ -164,7 +164,9 @@ define(["jquery", "soundcloud", "player", "app/df_auth"], function($) {
       	
       	$('#signin-link').click(function(e){
       		e.preventDefault;
-      		$('#signin-panel').toggle('fastest');
+      		//if($('.inplay').length==0) { //not signed in
+      			$('#signin-panel').toggle('fastest');
+      		//} 
       	});
       	
       	console.log('soundcloud loaded');
