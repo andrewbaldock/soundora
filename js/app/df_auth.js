@@ -6,7 +6,26 @@ define(["jquery", "json2"], function($) {
   		var baseurl = "https://dsp-song.cloud.dreamfactory.com/rest";
   		var apikey = '?app_name=soundora';
       
-      // authenticate dreamfactory.com cloud app backend with system user
+      function getSearches(dfuserid){
+        		$.ajax({
+							type: "GET",
+							url: baseurl + '/db/userSearches' + apikey + '&filter=userID%3D' + dfuserid,
+							dataType: "json",
+							contentType: "application/json",
+							success: function (response) {
+								console.log('got searches for user' + dfuserid);
+								aB.searches = response;
+								console.log(aB.searches);
+							},
+							error: function (response, textStatus, xError) {
+								console.log(response);
+							},
+							beforeSend: function (xhr) {
+								xhr.setRequestHeader('X-DreamFactory-Session-Token', aB.sessionId);
+							}
+						}); 
+							
+			};
       
       function addUser(name,socialid) {
 					var item = {"record":[{"name":name,"socialid":socialid}]};
@@ -18,7 +37,9 @@ define(["jquery", "json2"], function($) {
 							cache:false,
 							processData: false,
 							success:function (response) {
+									
 									console.log('user created in dreamfactory');
+									aB.dfconnect = true;
 							},
 							error: function(response) {
 									$('#itemname').val('');
@@ -29,7 +50,8 @@ define(["jquery", "json2"], function($) {
 							}
 					});
 			}
-      
+			
+      // authenticate dreamfactory.com cloud app backend with system user
       $.ajax({
         type: "POST",
         url: baseurl + '/user/session' + apikey,
@@ -41,19 +63,20 @@ define(["jquery", "json2"], function($) {
         		console.log("dreamfactory authenticated");
         		aB.sessionId = response.session_id;
         		
-
+						// load up users
         		$.ajax({
 							type: "GET",
 							url: baseurl + '/db/users' + apikey,
 							dataType: "json",
 							contentType: "application/json",
 							success: function (response) {
-								console.log("got users:");
-								console.log(response); 
+								/*console.log("got users:");
+								console.log(response); */
 								aB.users = response;
 								
 								// check logged in state
 								aB.loggedin = false;
+								aB.dfconnect = false;
 								if(aB.userid != 'none') {aB.loggedin = true;}
 							
 								// look for user in dreamfactory
@@ -69,22 +92,22 @@ define(["jquery", "json2"], function($) {
 											if(chkid == aB.userid) {
 												userfound = true;
 												console.log('user found in dreamfactory');
+												aB.dfrecid = aB.users.record[i].userid
 										}
 									}; // end loop 
-									
-								}
+								};
 							
 								if(userfound == true) {			
 									//load up user searches right here
-								} else {
-								
+									aB.dfconnect = true;
+									getSearches(aB.dfrecid);
 									
+								} else {
 									//create a new user here
 									console.log('make a new user here');
 									addUser(aB.username,aB.userid);
-								} 
-								
-								
+								};
+							// end success
 							},
 							error: function (response, textStatus, xError) {
 								console.log(response);
