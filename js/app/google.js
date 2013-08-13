@@ -92,6 +92,11 @@ function disconnectUser() {
 				$('#logged-in').hide();
 				$('#signin-panel').hide();
 				$('#logged-out').show();
+				$('#savedsearches').html('<h3><a href="#" class="signin-link">Sign in</a><br>to see your<br>stations</h3>');
+				$('.signin-link').click(function(e){
+      		e.preventDefault;
+      		$('#signin-panel').toggle('fastest');
+      	});
 		},
 		error: function(e) {
 			// Handle the error

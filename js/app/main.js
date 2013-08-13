@@ -81,7 +81,12 @@ define(["jquery", "jquery.easing", "underscore", "app/df_auth", "json2", "soundc
 			}
 			toggleSpinner();
 
-			
+			$('.signin-link').click(function(e){
+      		e.preventDefault;
+      		//if($('.inplay').length==0) { //not signed in
+      			$('#signin-panel').toggle('fastest');
+      		//} 
+      });
       			
         
     });

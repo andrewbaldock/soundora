@@ -164,13 +164,6 @@ define(["jquery", "soundcloud", "player", "app/df_auth"], function($) {
       	//handle return key
       	$('input #query').on('keydown', function(event) { if (event.which == 13 || event.keyCode == 13) { e.preventDefault();$('#thequery button').click(); } });
       	
-      	$('#signin-link').click(function(e){
-      		e.preventDefault;
-      		//if($('.inplay').length==0) { //not signed in
-      			$('#signin-panel').toggle('fastest');
-      		//} 
-      	});
-      	
       	console.log('soundcloud loaded');
       	
       	
