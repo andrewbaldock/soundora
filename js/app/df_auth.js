@@ -6,7 +6,31 @@ define(["jquery", "json2"], function($) {
   		var baseurl = "https://dsp-song.cloud.dreamfactory.com/rest";
   		var apikey = '?app_name=soundora';
   		
+  		// DELETE A SEARCH
+  		aB.fn.df_auth.deleteItem = function(id) {
+
+				$.ajax({
+						dataType:'json',
+						type : "DELETE",
+						url:baseurl + '/db/userSearches/' + id + apikey,
+						cache:false,
+						processData: false,
+						success:function (response) {
+								console.log('deleted search id: ' + id);
+								aB.fn.df_auth.getSearches(); //refresh view
+						},
+						error: function(response) {
+								console.log("There was an error deleting the search");
+						},
+						beforeSend: function (xhr) {
+								xhr.setRequestHeader('X-DreamFactory-Session-Token', aB.sessionId);
+						}
+   			 });
+   			 
+			};
+   
   		
+  		// CREATE SEARCH
   		aB.fn.df_auth.saveSearch =  function(searchterm){
   				//check for dupes
   				var isdupe = false;
@@ -47,11 +71,14 @@ define(["jquery", "json2"], function($) {
 					}		
 			};
 			
+			
+			// SHOW SEARCHES
 			aB.fn.df_auth.exposeSearches = function() {
 				$('#savedsearches').html('<h3>Your Stations</h3>');
 				for (var i=0;i<aB.searchcount;i++){ 
 					var search = aB.searches.record[i].query;
-					$('#savedsearches').append('<a class="asearch" href="#">' + search + '</a>');
+					var searchid = aB.searches.record[i].searchid;
+					$('#savedsearches').append('<div class="asearch-wrap"><em data-searchid="' + searchid + '" class="icon-remove-circle"></em><a class="asearch" href="#">' + search + '</a></div>');
 				}; // end loop 
 				
 				//make them clickable
@@ -61,9 +88,17 @@ define(["jquery", "json2"], function($) {
 					$('#query').val(text);
 					$('#thequery button').click();
 				});
-			}
+				
+				$('.asearch-wrap em').click(function(){
+					var $rch = $(this);
+					$rch.parent().css('background-color','red');
+					var srch = this;
+					var srchid = srch.getAttribute('data-searchid');
+					aB.fn.df_auth.deleteItem(srchid);
+				});
+			};
   		
-      
+      // RETRIEVE SEARCHES
       aB.fn.df_auth.getSearches = function(){
         		$.ajax({
 							type: "GET",
@@ -89,6 +124,7 @@ define(["jquery", "json2"], function($) {
 							
 			};
       
+      // ADD USER
       function addUser(name,socialid) {
 					var item = {"record":[{"name":name,"socialid":socialid}]};
 					$.ajax({
@@ -113,6 +149,7 @@ define(["jquery", "json2"], function($) {
 					});
 			}
 			
+			// LOGIN
       // authenticate dreamfactory.com cloud app backend with system user
       $.ajax({
         type: "POST",
