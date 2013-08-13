@@ -111,6 +111,16 @@ button:hover {
     background-color: rgba(0, 177, 247, 0.12)!important;
 }
 
+.inplay #thequery button {
+
+	height: 29px;
+	font-size: 22px;
+	line-height: 25px;
+	border-radius: 2px;
+	box-shadow: 3px 5px 6px #181818;
+	border: none;
+}
+
 #results {
     display: none;
     padding-bottom: 100px;
@@ -250,7 +260,7 @@ button:active {
 .inplay #thequery {
 	display: block;
 	float: right;
-	margin-top: -45px;
+	margin-top: -43px;
 	margin-right:80px;
 }
 .inplay #query {
