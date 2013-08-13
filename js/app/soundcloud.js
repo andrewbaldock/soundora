@@ -124,7 +124,7 @@ define(["jquery", "soundcloud", "player", "app/df_auth"], function($) {
 									console.log('readying track ' + aB.tracks.trk1.id);
 									
 									
-    							$("#player-wrapper").sticky({topSpacing:50});
+    							$("#player-wrapper").sticky({topSpacing:57});
 						
 
 									//play first result
