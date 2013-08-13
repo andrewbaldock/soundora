@@ -7,8 +7,9 @@
 html {
     font-family: 'Share', sans-serif;
     text-align: center;
-    background: url('../img/escheresque_ste_@2X.png') #333;
-    /* background: url('../img/XXXXXXX') rgba(0, 172, 226, 0.74); */
+    background: url('../img/dark_exa.png') #333; 
+    background-attachment: fixed;
+    /* background: url('../img/escheresque_ste_@2X.png') #333; */
     /* background: url('../img/colourlovers-pattern-1243991-modernmusic-tweaked.gif') rgba(0, 172, 226, 0.74);  */
     /* background: url('../img/background-bluecircles.png') rgba(0, 172, 226, 0.74); */
     /* background: url('../img/background-purpcircles.png') #3D0E4C; */
@@ -111,6 +112,7 @@ button:hover {
     background-color: rgba(0, 177, 247, 0.12)!important;
 }
 
+
 .inplay #thequery button {
 
 	height: 29px;
@@ -187,6 +189,7 @@ button:hover {
 
 .inplay #tippytop {
 	z-index:5;
+	position: fixed;
 }
 
 #logged-in {
@@ -237,7 +240,9 @@ button:active {
     margin-top: -30px;
 }
 .inplay #main {
-    background-color:rgba(0, 159, 209, 1.0);
+    /*background-color:rgba(0, 159, 209, 1.0);*/
+    background: url('../img/dark_exa.png') #333; 
+    background-position:fixed;
     height:55px;
     text-align:left;
     position:fixed;
@@ -248,7 +253,7 @@ button:active {
 	float: left;
 	margin-right: 20px;
 	margin-left: 11px;
-	color: #fff;
+	color: #35CFFF;
 	margin-top: -26px;
 }
 
@@ -272,7 +277,13 @@ button:active {
 	height: 24px!important;
 	font-size: 21px!important;
 	line-height: 22px!important;
-	color:rgba(0, 159, 209, 1.0);
+	color:#fff!important;
+	background-color: rgba(0, 172, 226, 0.74);
+	border:1px solid #47BAF0;
+}
+.inplay #query:focus{
+	color:black!important;
+	background-color:white!important;
 }
 .inplay #spinner {
 	position: absolute;
@@ -287,7 +298,7 @@ button:active {
     /*background-color:rgba(0, 172, 226,0.66); */
 }
 .inplay #player-wrapper {
-	z-index:99999;
+	/*z-index:99999; */
 }
 
 #player {
@@ -329,7 +340,7 @@ footer {
 footer #credits {
     font-family: 'Codystar', sans-serif;
     font-size: 15px;
-    color: #fff;
+    color: #eee;
     position: absolute;
     bottom: 0px;
     left: 0px;
@@ -339,7 +350,6 @@ footer #credits {
     padding-bottom: 8px;
     background-color: rgba(0, 172, 226,0.76);
 }
-
 
 
 footer #pad {
@@ -378,8 +388,7 @@ footer #pad {
 	margin-top: -3px;
 }
 .inplay #user-wrapper img {
-	height: 30px;
-	width: 30px;
+
 	margin-top: -5px;
 	margin-right: -11px;
 }
@@ -416,21 +425,37 @@ em#userimg {
 	color:green!important;
 }
 
-#leftpanel {padding-top:30px;width:20%;height:2000px;float:left;display:block;/*background-color:rgba(0, 159, 209, 1.0)*/;display:none;}
-.inplay #leftpanel {display:block!important;}
-#rightpanel {width:80%;float:right;display:block;}
-.inplay #rightpanel {margin-top:40px;}
+#leftpanel {
+	padding-top:30px;
+	width:20%;
+	height:2000px;
+	float:left;
+	display:block;
+	/*background-color:rgba(0, 159, 209, 1.0)*/;
+	display:none;
+	}
+.inplay #leftpanel {
+	display:block!important;
+	position:fixed;
+	}
+#rightpanel {
+	width:80%;
+	float:right;
+	display:block;
+}
+.inplay #rightpanel {
+	margin-top:40px;
+}
 
 #savedsearches {
 
 }
 
 #savedsearches h3{
-	font-family:helvetica;	
 	width:100%;
 	margin-bottom:5px;
 	display:block;
-	color:rgba(74, 195, 233, 0.82);
+	color:rgba(0, 194, 255, 0.82);
 	padding:5px 0px;
 	font-weight: 400;
 }
