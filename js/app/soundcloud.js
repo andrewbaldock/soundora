@@ -41,7 +41,7 @@ define(["jquery", "soundcloud", "player", "app/df_auth"], function($) {
 					
 					console.log('searching on ' + usrInput);
 					//dreamfactory save search 
-					if(aB.dfconnect == true && aB.loggedin == true) {
+					if(aB.dfconnect && aB.loggedin) {
 						aB.fn.df_auth.saveSearch(usrInput);
 					}
 					
@@ -57,9 +57,11 @@ define(["jquery", "soundcloud", "player", "app/df_auth"], function($) {
 								
 								//choose the artwork
 								var art = track.artwork_url;
-								if (art == null) {
+								if (art === null) {
 									art = track.user.avatar_url;
-								}
+								}/* else {
+									$('html').css('background','url("' + art + '") #333!important').css('background-size','100% 100%');
+								} */
 								
 								$results.append(
 									'<div class="track-wrap" style="background-image:url(' + track.waveform_url + ');"><div class="track" style="background-image:url(' + art + ');" data-trk="' + (i+1) + '" id="trk' + track.id + '"><div class="text"><span>' + track.user.username + '</span><br><p>' + track.title + '</p></div></div></div>'
@@ -135,7 +137,7 @@ define(["jquery", "soundcloud", "player", "app/df_auth"], function($) {
 									$(firstSong).click();
 								 } else {
 								  // to do
-								 	alert('no results');
+								 	//alert('no results');
 								 }//end if
 							 });//end require;
 							
@@ -162,7 +164,7 @@ define(["jquery", "soundcloud", "player", "app/df_auth"], function($) {
 				}
       	
       	//handle return key
-      	$('input #query').on('keydown', function(event) { if (event.which == 13 || event.keyCode == 13) { e.preventDefault();$('#thequery button').click(); } });
+      	$('input #query').on('keydown', function(event) { if (event.which === 13 || event.keyCode === 13) { e.preventDefault();$('#thequery button').click(); } });
       	
       	console.log('soundcloud loaded');
       	

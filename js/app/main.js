@@ -52,7 +52,7 @@ define(["jquery", "jquery.easing", "underscore", "app/df_auth", "json2", "soundc
     		$results.y = $results.height();
     		var leftpanel_new_y = $results.y+260;
 				// verbose!!
-				console.log('results dimensions now: ' + results_new_x + 'x ' + $results.y + 'y');
+				//console.log('results dimensions now: ' + results_new_x + 'x ' + $results.y + 'y');
 				// apply the changes
 				$('#player').css('width',player_new_x+'px');
 				$results.css('height',$results.y+'px').css('width',results_new_x+'px');

@@ -30,7 +30,7 @@ function handleAuthResult(authResult) {
 				} else {
 					var theoutput = '<div id="theuser"><em class="userimg" class="icon-search"></em></div>';
 				}
-				if( $('#theuser').length == 0) {
+				if( $('#theuser').length < 1) {
 					$('#username').html(resp.displayName);
 					$('#user').html(theoutput)
 				}
