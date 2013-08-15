@@ -45,7 +45,7 @@ define(["jquery", "soundcloud", "player", "app/df_auth"], function($) {
 						aB.fn.df_auth.saveSearch(usrInput);
 					}
 					
-					var $results = $('#results').html('').hide();
+					var $results = $('#results').html('');
 
 					SC.get('/tracks', { q: usrInput }, function(result) {
 							console.log(result + ' ' + result.length);
@@ -69,7 +69,7 @@ define(["jquery", "soundcloud", "player", "app/df_auth"], function($) {
 								
 							}; //end for loop
 							
-							aB.resizeHandler();
+
 							
 							var sc_options = '&show_artwork=true&auto_play=true&show_comments=true&enable_api=true&sharing=true&color=00BCD3'
 							
@@ -126,7 +126,6 @@ define(["jquery", "soundcloud", "player", "app/df_auth"], function($) {
 									console.log('readying track ' + aB.tracks.trk1.id);
 									
 									
-    							$("#player-wrapper").sticky({topSpacing:50});
 						
 
 									//play first result
@@ -167,7 +166,7 @@ define(["jquery", "soundcloud", "player", "app/df_auth"], function($) {
       	$('input #query').on('keydown', function(event) { if (event.which === 13 || event.keyCode === 13) { e.preventDefault();$('#thequery button').click(); } });
       	
       	console.log('soundcloud loaded');
-      	
+      	$('#results').show();
       	
       }); //end outer require
   };

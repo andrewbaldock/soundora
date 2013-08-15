@@ -74,7 +74,7 @@ define(["jquery", "json2"], function($) {
 			
 			// SHOW SEARCHES
 			aB.fn.df_auth.exposeSearches = function() {
-				$('#savedsearches').html('<h3>Your Stations</h3>');
+				$('#savedsearches').html('');
 				for (var i=0;i<aB.searchcount;i++){ 
 					var search = aB.searches.record[i].query;
 					var searchid = aB.searches.record[i].searchid;
