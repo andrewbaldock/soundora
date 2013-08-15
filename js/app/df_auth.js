@@ -8,7 +8,7 @@ define(["jquery", "json2"], function($) {
   		
   		// DELETE A SEARCH
   		aB.fn.df_auth.deleteItem = function(id) {
-
+/*
 				$.ajax({
 						dataType:'json',
 						type : "DELETE",
@@ -26,13 +26,13 @@ define(["jquery", "json2"], function($) {
 								xhr.setRequestHeader('X-DreamFactory-Session-Token', aB.sessionId);
 						}
    			 });
-   			 
+*/   			 
 			};
    
   		
   		// CREATE SEARCH
   		aB.fn.df_auth.saveSearch =  function(searchterm){
-  				//check for dupes
+/*  				//check for dupes
   				var isdupe = false;
   				if(aB.searchcount > 0) {
   					for (var i=0;i<aB.searchcount;i++){ 
@@ -69,12 +69,12 @@ define(["jquery", "json2"], function($) {
 								}
 						});
 					}		
-			};
+*/			};
 			
 			
 			// SHOW SEARCHES
 			aB.fn.df_auth.exposeSearches = function() {
-				$('#savedsearches').html('');
+	/*			$('#savedsearches').html('');
 				for (var i=0;i<aB.searchcount;i++){ 
 					var search = aB.searches.record[i].query;
 					var searchid = aB.searches.record[i].searchid;
@@ -96,11 +96,11 @@ define(["jquery", "json2"], function($) {
 					var srchid = srch.getAttribute('data-searchid');
 					aB.fn.df_auth.deleteItem(srchid);
 				});
-			};
-  		
+ */ 			};
+		
       // RETRIEVE SEARCHES
       aB.fn.df_auth.getSearches = function(){
-        		$.ajax({
+/*        		$.ajax({
 							type: "GET",
 							url: baseurl + '/db/userSearches' + apikey + '&filter=userID%3D' + aB.dfrecid,
 							dataType: "json",
@@ -122,10 +122,10 @@ define(["jquery", "json2"], function($) {
 							}
 						}); 
 							
-			};
+ */ 			};
       
       // ADD USER
-      function addUser(name,socialid) {
+ /*     function addUser(name,socialid) {
 					var item = {"record":[{"name":name,"socialid":socialid}]};
 					$.ajax({
 							dataType:'json',
@@ -147,7 +147,7 @@ define(["jquery", "json2"], function($) {
 								xhr.setRequestHeader('X-DreamFactory-Session-Token', aB.sessionId);
 							}
 					});
-			}
+			} */
 			
 			// LOGIN
       // authenticate dreamfactory.com cloud app backend with system user
@@ -159,70 +159,8 @@ define(["jquery", "json2"], function($) {
         data: JSON.stringify({email:'andrewbaldock@yahoo.com',password:___._+'0r4'}),
 
         success: function (response) {
-        		console.log("dreamfactory loaded");
-        		aB.sessionId = response.session_id;
-        		
-						// load up users
-        		$.ajax({
-							type: "GET",
-							url: baseurl + '/db/users' + apikey,
-							dataType: "json",
-							contentType: "application/json",
-							success: function (response) {
-								/*console.log("got users:");
-								console.log(response); */
-								aB.users = response;
-								
-								// check logged in state
-								aB.loggedin = false;
-								aB.dfconnect = false;
-								if(aB.userid != 'none') {aB.loggedin = true;}
-							
-								// look for user in dreamfactory
-								var userfound = false;
-								if(aB.loggedin == true) {
-									//is user in database?	
-									var j=aB.users.record.length;							
-									for (var i=0;i<j;i++){ 
-										if (typeof aB.users.record[i].socialid =='undefined') {
-											var chkid = null;
-										} else
-											var chkid = aB.users.record[i].socialid;
-											if(chkid == aB.userid) {
-												userfound = true;
-												console.log('user found in dreamfactory');
-												aB.dfrecid = aB.users.record[i].userid
-										}
-									}; // end loop 
-								};
-							
-								if(userfound == true) {			
-									aB.dfconnect = true;
-									//load up user searches right here
-									aB.fn.df_auth.getSearches();
-									
-								} else {
-									//create a new user here if socialid exists
-									if(aB.userid =='none') {
-										console.log('user not logged in');
-									} else {
-										console.log('creating new dreamfactory userid');
-										addUser(aB.username,aB.userid);
-									}
-								};
-								//clear out unneeded users
-								aB.users = '';
-							// end success
-							},
-							error: function (response, textStatus, xError) {
-								console.log(response);
-							},
-							beforeSend: function (xhr) {
-								xhr.setRequestHeader('X-DreamFactory-Session-Token', aB.sessionId);
-							}
-						}); 					
-						
-						
+        		console.log("got dreamfactory token");
+        		aB.sessionId = response.session_id;						
         },
         
         error: function (response, textStatus, xError) {
