@@ -5,18 +5,27 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
   	require(['backbone','app/df_auth'], function (Backbone, df_auth) {
 
 			Backbone.sync = function(method, model, success, error){
-				success();
+				console.log('backbone sync');
 			}
 		
 			var Search = Backbone.Model.extend({
+				idAttribute: "id",
+				urlRoot: "https://dsp-song.cloud.dreamfactory.com/rest/db/userSearches/",
 				defaults: {
 					query: 'interscope',
-					userId: aB.userid
+					userid: aB.userid
 				}
 			});
 
 			var List = Backbone.Collection.extend({
-				model: Search
+				model: Search,
+				url: "https://dsp-song.cloud.dreamfactory.com/rest/db/userSearches/",
+				parse : function(resp) {
+          return resp;
+        },
+				initialize: function(){		// Deferred load
+					this.fetch();
+				}
 			});
 			
 			var searchView = Backbone.View.extend({
@@ -49,7 +58,7 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 				el: $('#savedsearches'), // attaches `this.el` to an existing element.
 				initialize: function(){
 					// fixes loss of context for 'this' within methods
-					_.bindAll(this, 'render', 'doSearch', 'deleteSearch'); 
+					_.bindAll(this, 'render', 'addSearch', 'doSearch', 'deleteSearch'); 
 					this.collection = new List();
 					// bind Backbone's Add event to my appendSearch function
 					this.collection.bind('add', this.appendSearch); 
