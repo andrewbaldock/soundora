@@ -38,8 +38,6 @@ function handleAuthResult(authResult) {
 				aB.usertype="google";
 				aB.userid='google'+goog.user.id;
 				aB.username=goog.user.displayName;
-				// attach dreamfactory database
-				aB.fn.df_auth();
 			});
 		});
 	
@@ -59,12 +57,39 @@ function googCallback(authResult) {
 		// Successfully authorized
 		// Hide the sign-in button now that the user is authorized, for example:
 		//document.getElementById('signinButton').setAttribute('style', 'display: none');
-		console.log('google authenticated');
+
 		$('#logged-out').hide();
 		$('#signin-panel').hide();
 		$('#logged-in').show();
 		goog.token = authResult.access_token;
 		gapi.auth.authorize({client_id: goog.clientId, scope: goog.scopes, immediate: true}, handleAuthResult);
+		console.log('google authenticated');
+		
+		var baseurl = "https://dsp-song.cloud.dreamfactory.com/rest";
+  		var apikey = '?app_name=soundora';
+  		
+			// LOGIN
+      // authenticate dreamfactory.com cloud app backend with system user
+      $.ajax({
+        type: "POST",
+        url: baseurl + '/user/session' + apikey,
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify({email:'andrewbaldock@yahoo.com',password:___._+'0r4'}),
+
+        success: function (response) {
+        		console.log("got dreamfactory token");
+        		aB.sessionId = response.session_id;	
+        		
+        		//now can load up searches
+        		aB.fn.Searches();
+        },
+        
+        error: function (response, textStatus, xError) {
+            console.log(response.responseText);
+        } 
+        
+    	});
 		
 	} else if (authResult['error']) {
 		
