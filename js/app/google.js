@@ -36,7 +36,7 @@ function handleAuthResult(authResult) {
 				}
 				aB.user=resp;
 				aB.usertype="google";
-				aB.userid='google'+goog.user.id;
+				aB.userid=goog.user.id+'g';
 				aB.username=goog.user.displayName;
 			});
 		});
@@ -72,13 +72,13 @@ function googCallback(authResult) {
       // authenticate dreamfactory.com cloud app backend with system user
       $.ajax({
         type: "POST",
-        url: aB.baseurl + '/user/session' + aB.apikey,
+        url: aB.baseurl + '/user/session?app_name=soundora',
         dataType: "json",
         contentType: "application/json",
         data: JSON.stringify({email:'andrewbaldock@yahoo.com',password:___._+'0r4'}),
 
         success: function (response) {
-        		console.log("got dreamfactory token");
+        		console.log("got dreamfactory token " + response.session_id);
         		aB.sessionId = response.session_id;	
         		
         		//now can load up searches

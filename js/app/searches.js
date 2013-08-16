@@ -4,7 +4,7 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
   aB.fn.Searches = function() {
   	require(['backbone','app/df_auth'], function (Backbone, df_auth) {
   	
-  		$.ajaxSetup({ headers: { 'X-DreamFactory-Session-Token':aB.sessionId}  });
+  		$.ajaxSetup({ headers: { 'X-DreamFactory-Session-Token':aB.sessionId, 'X-DreamFactory-Application-Name':'soundora'}  });
 			
 			/* a Search is:
 				- 'query' = the query terms,
@@ -21,14 +21,16 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 			
 			var SearchList = Backbone.Collection.extend({
 				model: Search,
-				url: aB.baseurl + "/db/searches" + aB.apikey + "&filter=userid%3D'" + escape(aB.userid) + "'",
+				//url: aB.baseurl +'/db/users/1' + aB.apikey + '&field=userid',
+				url: aB.baseurl + "/db/searches?filter=userid%3D'" + aB.userid + "'&fields=query",
 				parse : function(resp) {
+				  console.log(resp);
           return resp;
         },
 				initialize: function(){		
 					this.fetch();
 					aB.loopcounter++;
-					console.log('bb ajax fired')
+					console.log('getting user stations ')
 				}
 			});
 			
