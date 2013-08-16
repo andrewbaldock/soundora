@@ -65,6 +65,7 @@ function googCallback(authResult) {
 		gapi.auth.authorize({client_id: goog.clientId, scope: goog.scopes, immediate: true}, handleAuthResult);
 		console.log('google authenticated');
 		
+		
 	
   		
 			// LOGIN

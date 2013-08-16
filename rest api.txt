@@ -1,8 +1,11 @@
 var baseurl = "https://dsp-song.cloud.dreamfactory.com/rest";
 var apikey = '?app_name=soundora';
 
+
 retrieve 
-baseurl + '/db/userSearches/' + aB.userid + apikey + '&fields=query',
+baseurl + '/db/userSearches/' + aB.userid + apikey + '&fields=query', // wtf?
+
+baseurl + '/db/userSearches' + apikey + '&filter=userID%3D' + aB.dfrecid
 
 delete
 baseurl + '/db/userSearches/' + id + apikey

@@ -8,7 +8,7 @@
 // declare the aB object
 aB={fn:{}};
 aB.userid = 'none';
-aB.baseurl = "https://dsp-song.cloud.dreamfactory.com/rest";
+aB.baseurl = "https://dsp-soundora.cloud.dreamfactory.com/rest";
 aB.apikey = '?app_name=soundora';
 
 requirejs.config({

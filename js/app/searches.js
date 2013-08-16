@@ -4,11 +4,7 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
   aB.fn.Searches = function() {
   	require(['backbone','app/df_auth'], function (Backbone, df_auth) {
   	
-  			$.ajaxSetup({ headers: { 'X-DreamFactory-Session-Token':aB.sessionId}  });
-  	
-  			aB.baseurl = "https://dsp-song.cloud.dreamfactory.com/rest";
-				aB.apikey = '?app_name=soundora';
-
+  		$.ajaxSetup({ headers: { 'X-DreamFactory-Session-Token':aB.sessionId}  });
 			
 			/* a Search is:
 				- 'query' = the query terms,
@@ -25,14 +21,14 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 			
 			var SearchList = Backbone.Collection.extend({
 				model: Search,
-				url: aB.baseurl + '/db/userSearches' + aB.apikey + '&filter=userid%3D' + '5',
+				url: aB.baseurl + "/db/searches" + aB.apikey + "&filter=userid%3D'" + escape(aB.userid) + "'",
 				parse : function(resp) {
           return resp;
         },
 				initialize: function(){		
 					this.fetch();
 					aB.loopcounter++;
-					console.log('bb ajax fired ' + aB.loopcounter)
+					console.log('bb ajax fired')
 				}
 			});
 			
@@ -41,6 +37,42 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 				el: $('#savedsearches'),
 				initialize: function(){
 					this.render();
+				},
+				addSearch: function(){
+					var search = new aB.Search();
+					//get the search from the search field
+					var userinput = $('input#query').val().toLowerCase(); 
+					
+					//isDupe routine from stackoverflow.com/questions/6416958/
+					var isDupe = this.any(function(_search) { 
+							return _search.get('query') === search.get('query');
+					});
+					if (isDupe) {
+						console.log('dupe search detected, not creating');
+						return false;
+					};
+					search.set({
+						query: userinput 
+					});
+					// add search to collection; event 'add' fires appendSearch per init. to update the view
+					this.collection.add(search); 
+					console.log('search added');
+				},
+				doSearch: function(search){
+					console.log('do search');
+					$('input#query').val( search.get('query') );
+					$('#thequery button').click();
+				},
+				deleteSearch: function(search){
+					console.log( 'delete search' + search.get('query') );
+					this.collection.delete(search);
+				},
+				appendSearch: function(search){
+					var searchView = new searchView({
+						model: search
+					});
+					//relegate actual item redering to searchView
+					$(this.el).append(searchView.render().el);
 				},
 				render: function(){
 					$(this.el).html('<h3>Your Searches</h3><div id="searches"></div>');
