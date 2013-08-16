@@ -4,7 +4,10 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
   aB.fn.Searches = function() {
   	require(['backbone','app/df_auth'], function (Backbone, df_auth) {
   	
-  		$.ajaxSetup({ headers: { 'X-DreamFactory-Session-Token':aB.sessionId, 'X-DreamFactory-Application-Name':'soundora'}  });
+  		$.ajaxSetup({ headers: { 
+  			'X-DreamFactory-Session-Token':aB.sessionId, 
+  			'X-DreamFactory-Application-Name':'soundora'
+  		}});
 			
 			/* a Search is:
 				- 'query' = the query terms,
@@ -29,55 +32,47 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
         },
 				initialize: function(){		
 					this.fetch();
-					aB.loopcounter++;
-					console.log('getting user stations ')
+					console.log('getting user stations')
 				}
 			});
 			
-			
+			// Our main app view.
 			var SearchView = Backbone.View.extend({
+				model: Search,
 				el: $('#savedsearches'),
 				initialize: function(){
+					$(this.el).html('<h3>Your Stations</h3><div id="searches"></div>');
 					this.render();
 				},
-				addSearch: function(){
-					var search = new aB.Search();
-					//get the search from the search field
-					var userinput = $('input#query').val().toLowerCase(); 
-					
-					//isDupe routine from stackoverflow.com/questions/6416958/
-					var isDupe = this.any(function(_search) { 
-							return _search.get('query') === search.get('query');
-					});
-					if (isDupe) {
-						console.log('dupe search detected, not creating');
-						return false;
-					};
-					search.set({
-						query: userinput 
-					});
-					// add search to collection; event 'add' fires appendSearch per init. to update the view
-					this.collection.add(search); 
-					console.log('search added');
+				events: {
+					'click a': 'doSearch',
+					'click .delete': 'deleteSearch'
 				},
-				doSearch: function(search){
-					console.log('do search');
-					$('input#query').val( search.get('query') );
+				doSearch: function(){
+					console.log('play station ' + this.model.get('query'));
+					$('input#query').val( this.model.get('query') );
 					$('#thequery button').click();
 				},
+				
 				deleteSearch: function(search){
-					console.log( 'delete search' + search.get('query') );
+					console.log( 'delete search' + this.model.get('query') );
 					this.collection.delete(search);
 				},
-				appendSearch: function(search){
-					var searchView = new searchView({
-						model: search
-					});
-					//relegate actual item redering to searchView
-					$(this.el).append(searchView.render().el);
+				render: function(){
+					$(this.el).append('<div class="asearch-wrap"><em class="icon-remove-circle delete"></em><a class="asearch" href="#">' + this.model.get('query') + '</a></div>');
+				}
+			});
+			
+						
+			var SearchListView = Backbone.View.extend({
+				collection: SearchList,
+				el: $('#savedsearches'),
+				initialize: function(){
+					$(this.el).html('<h3>Your Searches</h3><div id="searches"></div>');
+					this.model.bind("reset", this.render, this);
+					this.render();
 				},
 				render: function(){
-					$(this.el).html('<h3>Your Searches</h3><div id="searches"></div>');
 					$(this.el).append('<div class="asearch-wrap"><em class="icon-remove-circle delete"></em><a class="asearch" href="#">' + this.model.get('query') + '</a></div>');
 				}
 			});
@@ -90,16 +85,10 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 			// create new collection
 			var searchList = new SearchList({});
 			
-			searchList.fetch({ 
-				
-			});
+		
 			
 			var searchView = new SearchView({
-				model:search,
-				events: {
-					'click a': 'doSearch',
-					'click .delete': 'deleteSearch'
-				}
+				model:search
 			});
 
 			

@@ -123,7 +123,7 @@ button:hover {
 #results {
     display: none;
     padding-bottom: 100px;
-    padding-top:120px;
+    padding-top:10px;
 }
 .pad {
 	height:50px;
@@ -362,9 +362,9 @@ em#userimg {
 }
 
 #savedsearches {
-	width: 97%;
+	width: 80%;
 	display: inline-block;
-
+	margin-bottom:20px;
 	}
 
 #savedsearches h3{
@@ -389,7 +389,7 @@ em#userimg {
 	background-color: rgba(2, 106, 139, 0.64);
 	text-align: left;
 	padding-left: 11px;
-	float: left;
+
 }
 	
 .asearch-wrap:hover a {
