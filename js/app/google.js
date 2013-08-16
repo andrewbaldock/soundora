@@ -65,14 +65,13 @@ function googCallback(authResult) {
 		gapi.auth.authorize({client_id: goog.clientId, scope: goog.scopes, immediate: true}, handleAuthResult);
 		console.log('google authenticated');
 		
-		var baseurl = "https://dsp-song.cloud.dreamfactory.com/rest";
-  		var apikey = '?app_name=soundora';
+	
   		
 			// LOGIN
       // authenticate dreamfactory.com cloud app backend with system user
       $.ajax({
         type: "POST",
-        url: baseurl + '/user/session' + apikey,
+        url: aB.baseurl + '/user/session' + aB.apikey,
         dataType: "json",
         contentType: "application/json",
         data: JSON.stringify({email:'andrewbaldock@yahoo.com',password:___._+'0r4'}),

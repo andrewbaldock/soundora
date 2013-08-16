@@ -8,6 +8,9 @@
 // declare the aB object
 aB={fn:{}};
 aB.userid = 'none';
+aB.baseurl = "https://dsp-song.cloud.dreamfactory.com/rest";
+aB.apikey = '?app_name=soundora';
+
 requirejs.config({
     "baseUrl": "js/lib",
     shim: {   // Using shim we define dependencies between our libraries

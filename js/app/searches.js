@@ -1,8 +1,13 @@
 /* github.com/andrewbaldock/soundora */
-
+aB.loopcounter=0;
 define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_auth) {
   aB.fn.Searches = function() {
   	require(['backbone','app/df_auth'], function (Backbone, df_auth) {
+  	
+  			$.ajaxSetup({ headers: { 'X-DreamFactory-Session-Token':aB.sessionId}  });
+  	
+  			aB.baseurl = "https://dsp-song.cloud.dreamfactory.com/rest";
+				aB.apikey = '?app_name=soundora';
 
 			
 			/* a Search is:
@@ -20,12 +25,14 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 			
 			var SearchList = Backbone.Collection.extend({
 				model: Search,
-				url: "https://dsp-song.cloud.dreamfactory.com/rest/db/userSearches/",
+				url: aB.baseurl + '/db/userSearches' + aB.apikey + '&filter=userid%3D' + '5',
 				parse : function(resp) {
           return resp;
         },
 				initialize: function(){		
 					this.fetch();
+					aB.loopcounter++;
+					console.log('bb ajax fired ' + aB.loopcounter)
 				}
 			});
 			
@@ -48,6 +55,10 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 			
 			// create new collection
 			var searchList = new SearchList({});
+			
+			searchList.fetch({ 
+				
+			});
 			
 			var searchView = new SearchView({
 				model:search,
