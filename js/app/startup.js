@@ -25,6 +25,7 @@ requirejs.config({
     "paths": {
       "app": "../app",
       "jquery" : 			"//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min",
+      //"jquery" : 			"//cdnjs.cloudflare.com/ajax/libs/zepto/1.0rc1/zepto.min",
       "json2" : 			"//cdnjs.cloudflare.com/ajax/libs/json2/20121008/json2.min",
       "underscore" :  "//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min",
       "backbone" : 		"//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min",
