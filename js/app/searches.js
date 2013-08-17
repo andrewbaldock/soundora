@@ -18,32 +18,34 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
   		/*
 			MODEL: individual Search item
 			-----------------------------------------------------------------*/
-			var Search = Backbone.Model.extend({
+			aB.Search = Backbone.Model.extend({
 			});
 			
 			/*
 			VIEW / model: Item view for a single search - uses templates
 			-----------------------------------------------------------------*/
 			var SearchView = Backbone.View.extend({
+				model:aB.Search,
 				/* tagName: "li", */     // auto-wrap in an html element
 				template: _.template($("#searches-template").html()),
 				render: function() {
+						// console.log(this.model); //verbose
 						this.$el.html(this.template(this.model));
 						return this;
 				},
 				events: {
-					'click a': 'doSearch',
+					'click .asearch': 'doSearch',
 					'click .delete': 'deleteSearch'
 				},
 				doSearch: function(){
-					console.log('play station ' + this.model.get('query'));
-					$('input#query').val( this.model.get('query') );
+					console.log('play station ' + this.model.query);
+					$('input#query').val( this.model.query);
 					$('#thequery button').click();
 				},
-				
-				deleteSearch: function(search){
-					console.log( 'delete search' + this.model.get('query') );
-					this.collection.delete(search);
+				deleteSearch: function(event){
+					console.log( 'delete search ' + this.model.query );
+					console.log(event);
+					// TODO
 				}
 			});
 
@@ -51,11 +53,9 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 			COLLECTION: list of Searches
 			-----------------------------------------------------------------*/
 			var SearchCollection = Backbone.Collection.extend({
-				model: Search,
+				model: aB.Search,
 				url: aB.baseurl + "/db/searches?filter=userid%3D'" + aB.df_userid + "'&fields=query",  // final, fine tuned URL
 				parse: function(resp) {
-						console.log('1. response inside collection parse');
-						console.log(resp);
 						return resp;
 				}
 			});
@@ -69,16 +69,12 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 							this.collection.bind("add", this.render, this);
 					},
 					render: function() {
-							console.log(this.collection.models[0].attributes.record);
-							_.each(this.collection.models[0].attributes.record, function(data) {
-									console.log('3. response inside collection view _each');
-									console.log(data.query);
-									this.$el.append(
-											new SearchView({
-											model: data
-										}).render().el);
+							var results = this.collection.models[0].attributes.record;
+							console.log('backbone got ' + results.length + ' search records via ajax');
+							_.each(results, function(data) {
+									// here is the heavy lifting of getting onto view
+									this.$el.append(new SearchView({model: data}).render().el);  
 							}, this);
-						
 					}
 			});
 
@@ -91,8 +87,6 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 
 			searchCollection.fetch({
 					success: function() {
-							console.log('2. first fetch');
-							console.log(searchCollection.toJSON());
 							new SearchCollectionView({collection: searchCollection}).render();
 					},
 					error: function() {
@@ -111,6 +105,8 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 			var view = new SearchCollectionView({collection: searchCollection}).render();
 			// End of test code
 			*/
+			
+
 			
 			
     }) // end require	
