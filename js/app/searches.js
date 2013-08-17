@@ -19,9 +19,6 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 			MODEL: individual Search item
 			-----------------------------------------------------------------*/
 			var Search = Backbone.Model.extend({
-				defaults: {
-					query: 'a search'
-				}
 			});
 			
 			/*
@@ -31,7 +28,7 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 				/* tagName: "li", */     // auto-wrap in an html element
 				template: _.template($("#searches-template").html()),
 				render: function() {
-						this.$el.html(this.template(this.model.toJSON()));
+						this.$el.html(this.template(this.model));
 						return this;
 				},
 				events: {
@@ -55,9 +52,10 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 			-----------------------------------------------------------------*/
 			var SearchCollection = Backbone.Collection.extend({
 				model: Search,
-				url: "http://localhost:4000/get/employee",
+				url: aB.baseurl + "/db/searches?filter=userid%3D'" + aB.df_userid + "'&fields=query",  // final, fine tuned URL
 				parse: function(resp) {
-						console.log('response inside parse' + resp);
+						console.log('1. response inside collection parse');
+						console.log(resp);
 						return resp;
 				}
 			});
@@ -71,12 +69,16 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 							this.collection.bind("add", this.render, this);
 					},
 					render: function() {
-							_.each(this.collection.models, function(data) {
-									this.$el.append(new SearchView({
+							console.log(this.collection.models[0].attributes.record);
+							_.each(this.collection.models[0].attributes.record, function(data) {
+									console.log('3. response inside collection view _each');
+									console.log(data.query);
+									this.$el.append(
+											new SearchView({
 											model: data
-									}).render().el);
+										}).render().el);
 							}, this);
-							return this;
+						
 					}
 			});
 
@@ -84,11 +86,12 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 
 			/*
 			START get remote data and begin - use this OR section below
-			------------------------------------------------------------------
+			------------------------------------------------------------------*/
 			var searchCollection = new SearchCollection();
 
 			searchCollection.fetch({
 					success: function() {
+							console.log('2. first fetch');
 							console.log(searchCollection.toJSON());
 							new SearchCollectionView({collection: searchCollection}).render();
 					},
@@ -96,18 +99,18 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 							console.log('oh noes fetch fail');
 					}
 			});
-			*/
+			
 
 			/*
 			TEST with local data - use this OR section above
-			------------------------------------------------------------------*/
+			------------------------------------------------------------------
 			var search1 = new Search({query:'interscope'});
 			var search2 = new Search({query:'pixies magnetic monkey'});
 			var searchCollection = new SearchCollection([search1, search2]);
 			// start!
 			var view = new SearchCollectionView({collection: searchCollection}).render();
 			// End of test code
-			
+			*/
 			
 			
     }) // end require	
