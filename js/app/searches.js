@@ -9,7 +9,7 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
   		
   		/*
 			$.AJAX: Tell $.ajax to send dreamfactory headers 
-			--------------------------------------------------------------*/
+			-----------------------------------------------------------------*/
   		$.ajaxSetup({ headers: { 
   			'X-DreamFactory-Session-Token':aB.sessionId, 
   			'X-DreamFactory-Application-Name':'soundora'
@@ -17,32 +17,59 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
   		
   		/*
 			MODEL: individual Search item
-			--------------------------------------------------------------*/
+			-----------------------------------------------------------------*/
 			var Search = Backbone.Model.extend({
+				defaults: {
+					query: 'a search'
+				}
+			});
+			
+			/*
+			VIEW / model: Item view for a single search - uses templates
+			-----------------------------------------------------------------*/
+			var SearchView = Backbone.View.extend({
+				/* tagName: "li", */     // auto-wrap in an html element
+				template: _.template($("#searches-template").html()),
+				render: function() {
+						this.$el.html(this.template(this.model.toJSON()));
+						return this;
+				},
+				events: {
+					'click a': 'doSearch',
+					'click .delete': 'deleteSearch'
+				},
+				doSearch: function(){
+					console.log('play station ' + this.model.get('query'));
+					$('input#query').val( this.model.get('query') );
+					$('#thequery button').click();
+				},
+				
+				deleteSearch: function(search){
+					console.log( 'delete search' + this.model.get('query') );
+					this.collection.delete(search);
+				}
 			});
 
 			/*
 			COLLECTION: list of Searches
-			--------------------------------------------------------------*/
+			-----------------------------------------------------------------*/
 			var SearchCollection = Backbone.Collection.extend({
-					model: Search,
-					url: "http://localhost:4000/get/employee",
-					parse: function(res) {
-							console.log('response inside parse' + res);
-							return res;
-					}
-
+				model: Search,
+				url: "http://localhost:4000/get/employee",
+				parse: function(resp) {
+						console.log('response inside parse' + resp);
+						return resp;
+				}
 			});
 			
 			/*
-			VIEW: List view to render the search collection into
-			--------------------------------------------------------------*/
+			VIEW / collection: List view to render the search collection into
+			-----------------------------------------------------------------*/
 			var SearchCollectionView = Backbone.View.extend({
 					el: $('#savedsearches'),
 					initialize: function() {
 							this.collection.bind("add", this.render, this);
 					},
-
 					render: function() {
 							_.each(this.collection.models, function(data) {
 									this.$el.append(new SearchView({
@@ -53,24 +80,11 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 					}
 			});
 
-			/*
-			VIEW: Item view to render each search in the collection
-			--------------------------------------------------------------*/
-			var SearchView = Backbone.View.extend({
-					/* tagName: "tr", */
-					template: _.template($("#searches-template").html()),
-
-					render: function() {
-							this.$el.html(this.template(this.model.toJSON()));
-							return this;
-					}
-			});
-
 			
 
 			/*
 			START get remote data and begin - use this OR section below
-			----------------------------------------------------------------
+			------------------------------------------------------------------
 			var searchCollection = new SearchCollection();
 
 			searchCollection.fetch({
@@ -86,7 +100,7 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 
 			/*
 			TEST with local data - use this OR section above
-			---------------------------------------------------------------*/
+			------------------------------------------------------------------*/
 			var search1 = new Search({query:'interscope'});
 			var search2 = new Search({query:'pixies magnetic monkey'});
 			var searchCollection = new SearchCollection([search1, search2]);
