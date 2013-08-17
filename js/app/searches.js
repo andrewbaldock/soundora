@@ -4,93 +4,97 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
   aB.fn.Searches = function() {
   	require(['backbone','app/df_auth'], function (Backbone, df_auth) {
   	
+  		// todo: get real df user id
+  		aB.df_userid = 1;
+  		
+  		/*
+			$.AJAX: Tell $.ajax to send dreamfactory headers 
+			--------------------------------------------------------------*/
   		$.ajaxSetup({ headers: { 
   			'X-DreamFactory-Session-Token':aB.sessionId, 
   			'X-DreamFactory-Application-Name':'soundora'
   		}});
-			
-			/* a Search is:
-				- 'query' = the query terms,
-				- 'aB.userid' the social id of user,
-				- a method to perform search,
-				- a method to delete search
-			*/
+  		
+  		/*
+			MODEL: individual Search item
+			--------------------------------------------------------------*/
 			var Search = Backbone.Model.extend({
-				defaults: {
-					query: null,
-					userid: aB.userid
-				}
-			});
-			
-			var SearchList = Backbone.Collection.extend({
-				model: Search,
-				//url: aB.baseurl +'/db/users/1' + aB.apikey + '&field=userid',
-				url: aB.baseurl + "/db/searches?filter=userid%3D'" + aB.userid + "'&fields=query",
-				parse : function(resp) {
-				  console.log(resp);
-          return resp;
-        },
-				initialize: function(){		
-					this.fetch();
-					console.log('getting user stations')
-				}
-			});
-			
-			// Our main app view.
-			var SearchView = Backbone.View.extend({
-				model: Search,
-				el: $('#savedsearches'),
-				initialize: function(){
-					$(this.el).html('<h3>Your Stations</h3><div id="searches"></div>');
-					this.render();
-				},
-				events: {
-					'click a': 'doSearch',
-					'click .delete': 'deleteSearch'
-				},
-				doSearch: function(){
-					console.log('play station ' + this.model.get('query'));
-					$('input#query').val( this.model.get('query') );
-					$('#thequery button').click();
-				},
-				
-				deleteSearch: function(search){
-					console.log( 'delete search' + this.model.get('query') );
-					this.collection.delete(search);
-				},
-				render: function(){
-					$(this.el).append('<div class="asearch-wrap"><em class="icon-remove-circle delete"></em><a class="asearch" href="#">' + this.model.get('query') + '</a></div>');
-				}
-			});
-			
-						
-			var SearchListView = Backbone.View.extend({
-				collection: SearchList,
-				el: $('#savedsearches'),
-				initialize: function(){
-					$(this.el).html('<h3>Your Searches</h3><div id="searches"></div>');
-					this.model.bind("reset", this.render, this);
-					this.render();
-				},
-				render: function(){
-					$(this.el).append('<div class="asearch-wrap"><em class="icon-remove-circle delete"></em><a class="asearch" href="#">' + this.model.get('query') + '</a></div>');
-				}
-			});
-			
-			// create single search item					
-			var search = new Search(
-				{userid:aB.userid, query:'interscope'}
-			);
-			
-			// create new collection
-			var searchList = new SearchList({});
-			
-		
-			
-			var searchView = new SearchView({
-				model:search
 			});
 
+			/*
+			COLLECTION: list of Searches
+			--------------------------------------------------------------*/
+			var SearchCollection = Backbone.Collection.extend({
+					model: Search,
+					url: "http://localhost:4000/get/employee",
+					parse: function(res) {
+							console.log('response inside parse' + res);
+							return res;
+					}
+
+			});
+			
+			/*
+			VIEW: List view to render the search collection into
+			--------------------------------------------------------------*/
+			var SearchCollectionView = Backbone.View.extend({
+					el: $('#savedsearches'),
+					initialize: function() {
+							this.collection.bind("add", this.render, this);
+					},
+
+					render: function() {
+							_.each(this.collection.models, function(data) {
+									this.$el.append(new SearchView({
+											model: data
+									}).render().el);
+							}, this);
+							return this;
+					}
+			});
+
+			/*
+			VIEW: Item view to render each search in the collection
+			--------------------------------------------------------------*/
+			var SearchView = Backbone.View.extend({
+					/* tagName: "tr", */
+					template: _.template($("#searches-template").html()),
+
+					render: function() {
+							this.$el.html(this.template(this.model.toJSON()));
+							return this;
+					}
+			});
+
+			
+
+			/*
+			START get remote data and begin - use this OR section below
+			----------------------------------------------------------------
+			var searchCollection = new SearchCollection();
+
+			searchCollection.fetch({
+					success: function() {
+							console.log(searchCollection.toJSON());
+							new SearchCollectionView({collection: searchCollection}).render();
+					},
+					error: function() {
+							console.log('oh noes fetch fail');
+					}
+			});
+			*/
+
+			/*
+			TEST with local data - use this OR section above
+			---------------------------------------------------------------*/
+			var search1 = new Search({query:'interscope'});
+			var search2 = new Search({query:'pixies magnetic monkey'});
+			var searchCollection = new SearchCollection([search1, search2]);
+			// start!
+			var view = new SearchCollectionView({collection: searchCollection}).render();
+			// End of test code
+			
+			
 			
     }) // end require	
   };  // end aB.fn.Searches

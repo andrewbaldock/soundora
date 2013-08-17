@@ -384,7 +384,7 @@ em#userimg {
 	margin-bottom: 6px;
 	margin-left: 5px;
 	color: #E6E6E6;
-	
+	float:left;
 	font-size: 14px;
 	background-color: rgba(2, 106, 139, 0.64);
 	text-align: left;
