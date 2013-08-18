@@ -4,14 +4,25 @@
 /* fontawesome */
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css);
 
+
+a, button, input, img, div {
+	transition: all 0.2s ease-in-out;
+}
+
+html {
+	transition: all 1.5s ease-in-out;
+}
+
+#playzoom{font-size:150px;color:white;display:none;margin-left:50%;margin-right:auto;margin-top:300px;}
+
 html {
     font-family: 'Share', sans-serif;
     text-align: center;
     background: url('../img/dark_exa.png') #333; 
     background-attachment: fixed;
-    /* background: url('../img/escheresque_ste_@2X.png') #333; */
+    /* background: url('../img/escheresque_ste_@2X.png') #fff; */
     /* background: url('../img/colourlovers-pattern-1243991-modernmusic-tweaked.gif') rgba(0, 172, 226, 0.74);  */
-    /* background: url('../img/background-bluecircles.png') rgba(0, 172, 226, 0.74); */
+    /* background: url('../img/background-bluecircles.png') #333;  */
     /* background: url('../img/background-purpcircles.png') #3D0E4C; */
     color: #979797;
     padding:0px;
@@ -23,6 +34,11 @@ body {
     padding:0px;
     margin:0px;
     height:100%;
+}
+
+a:active {
+	transform: scale(2);
+	opacity: 0.3;
 }
 
 #container {
@@ -385,6 +401,7 @@ em#userimg {
 	margin-left: 5px;
 	color: #E6E6E6;
 	font-size: 14px;
+	line-height:14px;
 	background-color: rgba(2, 106, 139, 0.64);
 	text-align: left;
 	padding-left: 11px;
@@ -395,8 +412,10 @@ em#userimg {
 	float:left;
 }
 	
-.asearch-wrap:hover a {
+.asearch:hover {
 	background-color:rgba(0, 159, 209, 1.0);
+	text-shadow:0px 1px 2px #111;
+	transition: all 0.4s ease-in-out;
 }
 
 .asearch-wrap em {
@@ -409,6 +428,21 @@ em#userimg {
 
 .asearch-wrap:hover em {
 		cursor:pointer;
+}
+
+.delete {
+	position: relative;
+	left: 26px;
+	padding: 4px;
+	margin-right: 8px;
+	color:#777;
+	font-size:14px;
+	line-height:14px;
+	border-radius: 3px 0px 0px 3px;
+}
+.delete:hover {
+	background-color:red;
+	color:white;
 }
 
 @media only screen and (max-width: 1024px) {

@@ -69,11 +69,19 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 							this.collection.bind("add", this.render, this);
 					},
 					render: function() {
+							this.$el.html('<h3>Your Stations</h3>');
 							var results = this.collection.models[0].attributes.record;
 							console.log('backbone got ' + results.length + ' search records via ajax');
+							
 							_.each(results, function(data) {
+							
 									// here is the heavy lifting of getting onto view
-									this.$el.append(new SearchView({model: data}).render().el);  
+									this.$el.append(
+										new SearchView({
+											model: data
+										}
+									).render().el); 
+									
 							}, this);
 					}
 			});
