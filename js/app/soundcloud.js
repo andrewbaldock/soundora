@@ -8,6 +8,9 @@ define(["jquery", "soundcloud", "player", "app/df_auth"], function($) {
 				//begin interaction
 				$('#thequery').slideDown();
 
+				/*
+				BUTTON CLICK
+				--------------------------------------------------------------*/
       	$('#thequery button').click(function(soundcloud){
       		$('#thequery').hide();
       		$('#spinner').show();
@@ -97,6 +100,10 @@ define(["jquery", "soundcloud", "player", "app/df_auth"], function($) {
 							$('#spinner').hide('fastest');
 							
 							$('#thequery').fadeIn();
+							
+							var search1 = new aB.Search({query:usrInput});
+							aB.searchCollection.add(search1);
+							
 
 							//launch the player
 							require(['player'], function (player) {

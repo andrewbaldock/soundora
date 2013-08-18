@@ -115,10 +115,9 @@ function disconnectUser() {
 				$('#logged-in').hide();
 				$('#signin-panel').hide();
 				$('#logged-out').show();
-				$('#savedsearches').html('<h3><a href="#" class="signin-link">Sign in</a><br>to see your<br>stations</h3>');
+				//$('#savedsearches').html('<h3><a href="#" class="signin-link">Sign in</a><br>to see your<br>stations</h3>');
 				
 				$('.signin-link').off();
-				
 				$('.signin-link').click(function(e){
 					e.preventDefault;
 					if ($("#signin-panel").is(":hidden")) {
