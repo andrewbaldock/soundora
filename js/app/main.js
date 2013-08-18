@@ -39,6 +39,11 @@ define(["jquery", "underscore", "app/df_auth", "json2", "player", "backbone", "a
 			(function toggleSpinner(){
 				$('#spinner').slideUp('fastest');
 			}());
+			
+			$('#searchclear').click(function(){
+				$('#query').val('').focus();
+			});
+		
       			
     });
 });

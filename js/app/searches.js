@@ -7,6 +7,15 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
   		// todo: get real df user id
   		aB.df_userid = 1;
   		
+  		/* 
+  		/db/users?filter=userid%3D'111684386200137446092g'&fields=id%2Cuserid
+  		aB.baseurl + "/db/searches?filter=userid%3D'111684386200137446092g'&fields=query
+  		*/
+  		
+  		/* WORKS
+  		aB.baseurl + "/db/searches?filter=userid%3D'" + aB.df_userid + "'&fields=query",  // final, fine tuned URL
+  		*/
+  		
   		/*
 			$.AJAX: Tell $.ajax to send dreamfactory headers 
 			-----------------------------------------------------------------*/
@@ -54,7 +63,8 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 			-----------------------------------------------------------------*/
 			var SearchCollection = Backbone.Collection.extend({
 				model: aB.Search,
-				url: aB.baseurl + "/db/searches?filter=userid%3D'" + aB.df_userid + "'&fields=query",  // final, fine tuned URL
+			//url: aB.baseurl + "/db/searches?filter=userid%3D'" + aB.df_userid + "'&fields=query",  // final, fine tuned URL
+				url: aB.baseurl + "/db/searches?filter=userid%3D'" + aB.userid + "'&fields=query",
 				parse: function(resp) {
 						return resp;
 				}
@@ -71,6 +81,7 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 					render: function() {
 							this.$el.html('<h3>Your Stations</h3>');
 							var results = this.collection.models[0].attributes.record;
+							console.log(this.collection.url);
 							console.log('backbone got ' + results.length + ' search records via ajax');
 							
 							_.each(results, function(data) {

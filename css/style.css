@@ -177,7 +177,7 @@ button:hover {
 .track:hover {
     height: 112px;
     width: 112px;
-    border: 8px solid #FF00AD;
+    border: 8px solid #FF0085;
     background-image: none;
     cursor:pointer;
 }
@@ -277,6 +277,7 @@ header {
     height: 112px;
     width: 112px;
     border: 8px solid rgba(0, 172, 226, 0.74);
+    box-shadow:0px 0px 10px #fff;
 }
 
 #spacer {
@@ -398,13 +399,13 @@ em#userimg {
 	border: 1px rgba(0, 0, 0, 0.18) solid;
 	padding: 4px;
 	margin-bottom: 6px;
-	margin-left: 5px;
+
 	color: #E6E6E6;
 	font-size: 14px;
 	line-height:14px;
 	background-color: rgba(2, 106, 139, 0.64);
 	text-align: left;
-	padding-left: 11px;
+	padding-left: 14px;
 
 }
 .asearch-wrap{
@@ -418,31 +419,48 @@ em#userimg {
 	transition: all 0.4s ease-in-out;
 }
 
-.asearch-wrap em {
-	color:rgb(255, 65, 65);
-	float:left;
-	margin-top:3px;
-	margin-left:10px;
-	display:none;
-}
 
-.asearch-wrap:hover em {
+.asearch-wrap:hover a {
 		cursor:pointer;
 }
 
 .delete {
 	position: relative;
-	left: 26px;
+	left: 18px;
 	padding: 4px;
-	margin-right: 8px;
+
 	color:#777;
 	font-size:14px;
 	line-height:14px;
 	border-radius: 3px 0px 0px 3px;
 }
 .delete:hover {
-	background-color:red;
+	background-color:#FF0085;
 	color:white;
+}
+#searchclear {
+	position: relative;
+	border-left: 1px solid #EDEBF0;
+	right: 8px;
+	height: 25px;
+	background-color: rgba(252, 252, 252, 1);
+	float: right;
+	display: block;
+	margin-top: 3px;
+	padding-top: 6px;
+	font-size: 22px;
+	margin-left: -19px;
+	padding-left: 2px;
+	color: #D1CCCC;
+}
+#searchclear:hover {
+	color:#FF0085;
+}
+#query:focus #searchclear {
+	display:none;
+}
+#querywrap {
+	display:inline-block;
 }
 
 @media only screen and (max-width: 1024px) {
@@ -461,19 +479,50 @@ em#userimg {
 	#results {
 		width:650px;
 	}
+	h1 {font-size:63px;}
+	#subtitle {
+		margin-top: -15px;
+		margin-left: 10px;
+		font-size: 22px;
+		line-height:22px;
+	}
 }
 @media only screen and (min-width: 480px) and (max-width: 766px) {
 	#results {
 		width:490px;
+	}
+	h1 {font-size:58px;}
+	#subtitle {
+		margin-top: -25px;
+		margin-left: 28px;
+		font-size: 22px;
+		line-height:22px;
+		letter-spacing:5px;
 	}
 }
 @media screen and (max-width : 479px) {
 	#results {
 		width:335px;
 	}
+	h1 {font-size:50px;}
+	#subtitle {
+		margin-top: -30px;
+		margin-left: 15px;
+		font-size: 19px;
+		line-height:19px;
+		letter-spacing:3px;
+	}
 }
 @media screen and (max-width : 399px) {
 	#results {
 		width:335px;
+	}
+	h1 {font-size:45px;}
+	#subtitle {
+		margin-top: -30px;
+		margin-left: 20px;
+		font-size: 16px;
+		line-height:16px;
+		letter-spacing:3px;
 	}
 }
