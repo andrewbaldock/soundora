@@ -79,21 +79,19 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 							this.collection.bind("add", this.render, this);
 					},
 					render: function() {
-							this.$el.html('<h3>Your Stations</h3>');
 							var results = this.collection.models[0].attributes.record;
-							console.log(this.collection.url);
 							console.log('backbone got ' + results.length + ' search records via ajax');
+							if (results.length === 0) {
+								this.$el.html('<h3>Search for an Artist, Song, or Genre<br>to create Soundora Stations</h3>');
+							} else {
+								this.$el.html('<h3>Your Stations</h3>');
+								console.log(this.collection.url);
+								_.each(results, function(data) {
+										// here is the heavy lifting of getting onto view
+										this.$el.append( new SearchView({model: data}).render().el); 
+								}, this);
 							
-							_.each(results, function(data) {
-							
-									// here is the heavy lifting of getting onto view
-									this.$el.append(
-										new SearchView({
-											model: data
-										}
-									).render().el); 
-									
-							}, this);
+							}
 					}
 			});
 

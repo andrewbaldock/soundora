@@ -34,7 +34,8 @@ function handleAuthResult(authResult) {
 					$('#username').html(resp.displayName);
 					$('#user').html(theoutput)
 				}
-				aB.user=resp;
+				aB.user=resp;	
+				aB.usertype='google';
 				aB.userid=goog.user.id+'g';
 				aB.username=goog.user.displayName;
 				
@@ -115,10 +116,14 @@ function disconnectUser() {
 				$('#signin-panel').hide();
 				$('#logged-out').show();
 				$('#savedsearches').html('<h3><a href="#" class="signin-link">Sign in</a><br>to see your<br>stations</h3>');
+				
+				$('.signin-link').off();
 				$('.signin-link').click(function(e){
       		e.preventDefault;
       		$('#signin-panel').toggle('fastest');
       	});
+      	
+      	
 		},
 		error: function(e) {
 			// Handle the error
