@@ -22,14 +22,35 @@ define(["jquery", "underscore", "app/df_auth", "json2", "player", "backbone", "a
 				return this.replace(new RegExp(str1.replace(/([\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g, function(c){return "\\" + c;}), "g"+(ignore?"i":"")), str2);
 			};
   
-    	$('.signin-link').click(function(e){
+    	/* $('.signin-link').click(function(e){
       	e.preventDefault;
       	if ($("#signin-panel").is(":hidden")) {
-					$("#signin-panel").slideDown("slowest");
+					$("#signin-panel").slideDown("fast");
 				} else {
-					$("#signin-panel").slideUp("slowest");
+					$("#signin-panel").slideUp("fast");
 				}
-      });
+      }); */
+      
+      
+      
+      var $div = $("#signin-panel");
+			var height = $div.height();
+			$div.hide().css({ height : 0 });
+
+			$('.signin-link').click(function () {
+				if ( $div.is(':visible') ) {
+					$div.animate({ height: 0 }, { duration: 500, complete: function () {
+							$div.hide();
+						} 
+					});
+				} else {
+					$div.show().animate({ height : height }, { duration: 500 });
+				}
+		
+				return false;
+			});
+      
+      
       
       
 
