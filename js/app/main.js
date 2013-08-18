@@ -23,12 +23,20 @@ define(["jquery", "underscore", "app/df_auth", "json2", "player", "backbone", "a
 			};
   
     	$('.signin-link').click(function(e){
-      		e.preventDefault;
-      		$('#signin-panel').toggle('fastest');
+      	e.preventDefault;
+      	if ($("#signin-panel").is(":hidden")) {
+					$("#signin-panel").slideDown("slowest");
+				} else {
+					$("#signin-panel").slideUp("slowest");
+				}
       });
+      
+      
+
     	
       aB.fn.soundcloud();
       aB.fn.df_auth();
+      aB.fn.Searches();
       
 			//show utils are loaded in console.
 			if(typeof $ !='undefined') {console.log("jquery loaded");}
@@ -44,6 +52,7 @@ define(["jquery", "underscore", "app/df_auth", "json2", "player", "backbone", "a
 				$('#query').val('').focus();
 			});
 		
+
       			
     });
 });

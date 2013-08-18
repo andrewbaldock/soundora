@@ -98,19 +98,25 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 			
 
 			/*
-			START get remote data and begin - use this OR section below
+			START get remote data and begin. (use this OR section below)
 			------------------------------------------------------------------*/
-			var searchCollection = new SearchCollection();
-
-			searchCollection.fetch({
-					success: function() {
-							new SearchCollectionView({collection: searchCollection}).render();
-					},
-					error: function() {
-							console.log('oh noes fetch fail');
-					}
-			});
+			if(aB.userid != 'none') {
 			
+				aB.searchCollection = new SearchCollection();
+
+				aB.searchCollection.fetch({
+						success: function() {
+								console.log('backbone collection activated: user logged in');
+								new SearchCollectionView({collection: aB.searchCollection}).render();
+						},
+						error: function() {
+								console.log('backbone collection activated: oh noes fetch fail');
+						}
+				});
+			} else { 
+				console.log('backbone collection activated: user not logged in');
+			}
+
 
 			/*
 			TEST with local data - use this OR section above

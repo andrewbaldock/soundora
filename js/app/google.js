@@ -39,12 +39,12 @@ function handleAuthResult(authResult) {
 				aB.userid=goog.user.id+'g';
 				aB.username=goog.user.displayName;
 				
-				//now that we have aB.userid can load up searches
-        aB.fn.Searches();
+				//now that we have aB.userid, can load up searches
+				aB.fn.Searches();
 			});
 		});
 	
-	} 
+	}
 }
 
 // asyc g+ signin init
@@ -118,12 +118,17 @@ function disconnectUser() {
 				$('#savedsearches').html('<h3><a href="#" class="signin-link">Sign in</a><br>to see your<br>stations</h3>');
 				
 				$('.signin-link').off();
+				
 				$('.signin-link').click(function(e){
-      		e.preventDefault;
-      		$('#signin-panel').toggle('fastest');
-      	});
+					e.preventDefault;
+					if ($("#signin-panel").is(":hidden")) {
+						$("#signin-panel").slideDown("slow");
+					} else {
+						$("#signin-panel").slideUp("slow");
+					}
+				});
       	
-      	
+      	console.log('google signed out');
 		},
 		error: function(e) {
 			// Handle the error
