@@ -17,6 +17,7 @@ define(["jquery", "soundcloud", "player", "app/df_auth"], function($) {
       	
       		var usrInput = $('#thequery input').val(); 
       		aB.tracks = {};
+      		aB.tracksarray = [];
       		aB.tracks.played = 0;
       		
       		//fire up soundcloud
@@ -36,10 +37,11 @@ define(["jquery", "soundcloud", "player", "app/df_auth"], function($) {
 					SC.get('/tracks', { q: usrInput }, function(result) {
 							console.log(result + ' ' + result.length);
 							// put 'em in teh dom
-
+							
 							for (var i=0;i<result.length;i++){ 			
 								var track = result[i];
 								aB.tracks['trk' + (i+1)] = track; //push to global aB object
+								aB.tracksarray.push(track); //push to global aB object
 								
 								//choose the artwork
 								var art = track.artwork_url;
@@ -54,9 +56,31 @@ define(["jquery", "soundcloud", "player", "app/df_auth"], function($) {
 								);
 								
 							}; //end for loop
-
+							console.log('#tracks: ' + aB.tracksarray.length);
 							var sc_options = '&show_artwork=true&auto_play=true&show_comments=true&enable_api=true&sharing=true&color=00BCD3'
 							
+							
+							// give each search a classname of its text
+							var usrInputClass = usrInput.toLowerCase().replaceAll(' ' , '_');
+							$('.asearch').each( function() {
+									var className = $(this).text().toLowerCase();
+									className = className.replaceAll(' ','_');
+									$(this).addClass(className);
+									console.log('gave a search the classname of ' + className);
+							});
+							//prevent dupes
+							console.log('user looked for: ' +usrInput);
+							if ($('.' + usrInputClass).length === 0 ) {
+								//persist query into collection
+								console.log('save ' + usrInput + ' into collection now');
+								aB.searchCollection.models.push( new aB.Search({model: {"id":"","query":usrInput} }) );
+								aB.searchCollectionView.render();
+							} else {
+								console.log('DUPE');
+							}
+				
+				
+				
 							// Show what track is currently playing
 							aB.fn.updatePlaying = function (trackId){
 								$('.track').removeClass('isPlaying');
@@ -100,9 +124,6 @@ define(["jquery", "soundcloud", "player", "app/df_auth"], function($) {
 							$('#spinner').hide('fastest');
 							
 							$('#thequery').fadeIn();
-							
-							var search1 = new aB.Search({query:usrInput});
-							aB.searchCollection.add(search1);
 							
 
 							//launch the player
