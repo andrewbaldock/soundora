@@ -119,8 +119,8 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 			/*
 			START get remote data and begin. (use this OR section below)
 			----------------------------------------------------------------*/
-			if(aB.userid != 'none') {
-			  aB.remotedata = true;
+		//	if(aB.userid != 'none') {
+		//	  aB.remotedata = true;
 			  
 			  if(typeof aB.searchCollection == 'undefined') {
 					aB.searchCollection = new SearchCollection();
@@ -140,9 +140,9 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 								console.log('backbone collection activated: oh noes fetch fail');
 						}
 				}); 
-			} else { 
-				console.log('backbone collection activated: user not logged in');
-			};
+		//	} else { 
+		//		console.log('backbone collection activated: user not logged in');
+		//	};
 		
 			//to ADD a record, this works awesome
 			/*
