@@ -97,7 +97,7 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 						if (results.length === 0) {
 							this.$el.html('<h3>Search for an Artist, Song, or Genre<br>to create Soundora Stations</h3>');
 						} else {
-								this.$el.html('<h3>Your Stations</h3>');
+								this.$el.html('');
 								
 								var self = this;
 								_.each(results, function(data) {
@@ -107,6 +107,7 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 								}, this);
 						
 						 }
+						 aB.arranger();
 					}
 			});
 

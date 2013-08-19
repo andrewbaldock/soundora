@@ -75,6 +75,7 @@ define(["jquery", "soundcloud", "player", "app/df_auth"], function($) {
 								console.log('save ' + usrInput + ' into collection now');
 								aB.searchCollection.models.push( new aB.Search({model: {"id":"","query":usrInput} }) );
 								aB.searchCollectionView.render();
+								aB.arranger();
 							} else {
 								console.log('DUPE');
 							}

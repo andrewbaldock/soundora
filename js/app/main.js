@@ -31,29 +31,11 @@ define(["jquery", "underscore", "app/df_auth", "json2", "player", "backbone", "a
 				}
       }); */
       
-      
-      
-      var $div = $("#signin-panel");
-			var height = $div.height();
-			$div.hide().css({ height : 0 });
-
-			$('.signin-link').click(function () {
-				if ( $div.is(':visible') ) {
-					$div.animate({ height: 0 }, { duration: 500, complete: function () {
-							$div.hide();
-						} 
-					});
-				} else {
-					$div.show().animate({ height : height }, { duration: 500 });
-				}
-		
-				return false;
+			$('.signin-link').off();
+			$('.signin-link').click(function(e){
+				e.preventDefault;
+				$("#signin-panel").toggle("slow");
 			});
-      
-      
-      
-      
-
     	
       aB.fn.soundcloud();
       aB.fn.df_auth();
@@ -72,6 +54,11 @@ define(["jquery", "underscore", "app/df_auth", "json2", "player", "backbone", "a
 			$('#searchclear').click(function(){
 				$('#query').val('').focus();
 			});
+			
+		  aB.arranger = function() {
+		  	$('#savedsearches div').css({'display':'inline-block','height':'26px'});
+		  }
+		  aB.arranger();
 		
 
       			

@@ -125,17 +125,6 @@ button:hover {
     background-color: rgba(0, 177, 247, 0.12);
 }
 
-
-.inplay #thequery button {
-
-	height: 29px;
-	font-size: 22px;
-	line-height: 25px;
-	border-radius: 2px;
-	box-shadow: 3px 5px 6px #181818;
-	border: none;
-}
-
 #results {
     display: none;
     padding-bottom: 100px;
@@ -260,7 +249,7 @@ button:active {
 #player-wrapper {
     display: none;
     width: 100%; 
-    height: 110px;
+    height: 115px;
     background-color:rgba(0, 172, 226,0.66);
     box-shadow: 0px 5px 20px #000;
 }
@@ -386,9 +375,10 @@ em#userimg {
 }
 
 #savedsearches {
-	width: 80%;
+	width: 98%;
 	display: inline-block;
 	margin-bottom:20px;
+	margin-top:20px;
 	}
 
 #savedsearches h3{
@@ -410,7 +400,7 @@ em#userimg {
 	color: #E6E6E6;
 	font-size: 14px;
 	line-height:14px;
-	background-color: rgba(2, 106, 139, 0.64);
+	background-color: rgba(2, 106, 139, 0.90);
 	text-align: left;
 	padding-left: 14px;
 
