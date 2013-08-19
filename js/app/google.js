@@ -34,16 +34,17 @@ function handleAuthResult(authResult) {
 					$('#username').html(resp.displayName);
 					$('#user').html(theoutput)
 				}
-				aB.user=resp;
-				aB.usertype="google";
-				aB.userid='google'+goog.user.id;
+				aB.user=resp;	
+				aB.usertype='google';
+				aB.userid=goog.user.id+'g';
 				aB.username=goog.user.displayName;
-				// attach dreamfactory database
-				aB.fn.df_auth();
+				
+				//now that we have aB.userid, can load up searches
+				aB.fn.Searches();
 			});
 		});
 	
-	} 
+	}
 }
 
 // asyc g+ signin init
@@ -53,18 +54,40 @@ function handleAuthResult(authResult) {
 	 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
 })();
 
+function authDF(){
+	// LOGIN
+	// authenticate dreamfactory.com cloud app backend with system user
+	$.ajax({
+		type: "POST",
+		url: aB.baseurl + '/user/session?app_name=soundora',
+		dataType: "json",
+		contentType: "application/json",
+		data: JSON.stringify({email:'andrewbaldock@yahoo.com',password:___._+'0r4'}),
+		success: function (response) {
+				console.log("got dreamfactory token " + response.session_id);
+				aB.sessionId = response.session_id;	
+		},
+		error: function (response, textStatus, xError) {
+				console.log(response.responseText);
+		} 
+	});
+}
+
 // g+ callback
 function googCallback(authResult) {
 	if (authResult['access_token']) {
 		// Successfully authorized
 		// Hide the sign-in button now that the user is authorized, for example:
 		//document.getElementById('signinButton').setAttribute('style', 'display: none');
-		console.log('google authenticated');
+
 		$('#logged-out').hide();
 		$('#signin-panel').hide();
 		$('#logged-in').show();
 		goog.token = authResult.access_token;
 		gapi.auth.authorize({client_id: goog.clientId, scope: goog.scopes, immediate: true}, handleAuthResult);
+		console.log('google authenticated');
+		
+		authDF();	
 		
 	} else if (authResult['error']) {
 		
@@ -92,11 +115,19 @@ function disconnectUser() {
 				$('#logged-in').hide();
 				$('#signin-panel').hide();
 				$('#logged-out').show();
-				$('#savedsearches').html('<h3><a href="#" class="signin-link">Sign in</a><br>to see your<br>stations</h3>');
+				//$('#savedsearches').html('<h3><a href="#" class="signin-link">Sign in</a><br>to see your<br>stations</h3>');
+				
+				$('.signin-link').off();
 				$('.signin-link').click(function(e){
-      		e.preventDefault;
-      		$('#signin-panel').toggle('fastest');
-      	});
+					e.preventDefault;
+					if ($("#signin-panel").is(":hidden")) {
+						$("#signin-panel").slideDown("slow");
+					} else {
+						$("#signin-panel").slideUp("slow");
+					}
+				});
+      	
+      	console.log('google signed out');
 		},
 		error: function(e) {
 			// Handle the error

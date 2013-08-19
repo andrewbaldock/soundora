@@ -4,33 +4,20 @@ define(["jquery", "soundcloud", "player", "app/df_auth"], function($) {
   aB.fn.soundcloud = function(soundcloud) {
       require(['soundcloud'], function (soundcloud) {
       	
-      	//replaceAll function
-      	String.prototype.replaceAll = function(str1, str2, ignore) {
-   				return this.replace(new RegExp(str1.replace(/([\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g, function(c){return "\\" + c;}), "g"+(ignore?"i":"")), str2);
-				};
-      	
-      		//Get URL Params function
-				aB.fn.getUrlParam = function (paramName) {
-					paramName = paramName.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
-					var regexS = "[\\?&]" + paramName + "=([^&#]*)";
-					var regex = new RegExp(regexS);
-					var results = regex.exec(window.location.href);
-					if (results === null) { 
-						return false; 
-					} else {
-						return results[1];
-					}
-				};
 
 				//begin interaction
 				$('#thequery').slideDown();
 
+				/*
+				BUTTON CLICK
+				--------------------------------------------------------------*/
       	$('#thequery button').click(function(soundcloud){
-      		$('#thequery').hide();
+      		$('#player-wrapper').hide();
       		$('#spinner').show();
       	
       		var usrInput = $('#thequery input').val(); 
       		aB.tracks = {};
+      		aB.tracksarray = [];
       		aB.tracks.played = 0;
       		
       		//fire up soundcloud
@@ -41,19 +28,20 @@ define(["jquery", "soundcloud", "player", "app/df_auth"], function($) {
 					
 					console.log('searching on ' + usrInput);
 					//dreamfactory save search 
-					if(aB.dfconnect && aB.loggedin) {
-						aB.fn.df_auth.saveSearch(usrInput);
-					}
+					//if(aB.dfconnect && aB.loggedin) {
+					//	aB.fn.df_auth.saveSearch(usrInput);
+					//}
 					
-					var $results = $('#results').html('').hide();
+					var $results = $('#results').html('');
 
 					SC.get('/tracks', { q: usrInput }, function(result) {
 							console.log(result + ' ' + result.length);
 							// put 'em in teh dom
-
+							
 							for (var i=0;i<result.length;i++){ 			
 								var track = result[i];
 								aB.tracks['trk' + (i+1)] = track; //push to global aB object
+								aB.tracksarray.push(track); //push to global aB object
 								
 								//choose the artwork
 								var art = track.artwork_url;
@@ -68,11 +56,38 @@ define(["jquery", "soundcloud", "player", "app/df_auth"], function($) {
 								);
 								
 							}; //end for loop
-							
-							aB.resizeHandler();
-							
+							console.log('#tracks: ' + aB.tracksarray.length);
 							var sc_options = '&show_artwork=true&auto_play=true&show_comments=true&enable_api=true&sharing=true&color=00BCD3'
 							
+							
+							// give each search a classname of its text
+							var usrInputClass = usrInput.toLowerCase().replaceAll(' ' , '_');
+							$('.asearch').each( function() {
+									var className = $(this).text().toLowerCase();
+									className = className.replaceAll(' ','_');
+									$(this).addClass(className);
+									//console.log('gave a search the classname of ' + className);
+							});
+							//prevent dupes
+							console.log('user looked for: ' +usrInput);
+							if ($('.' + usrInputClass).length === 0 ) {
+								//persist query into collection
+								//console.log('save ' + usrInput + ' into collection now');
+								// WORKS: // aB.searchCollection.models.push( new aB.Search({model: {"id":"","query":usrInput} }) );
+								
+								//WORKING!
+								aB.searchCollection.create( new aB.Search({model: {"id":"","query":usrInput},"query":usrInput }) );
+								
+								//not working:
+								//aB.searchCollection.create( new aB.Search({"id":"","query":usrInput}) );
+								
+								aB.searchCollectionView.render();
+								aB.arranger();
+							} else {
+								console.log('DUPE');
+							}
+				
+				
 							// Show what track is currently playing
 							aB.fn.updatePlaying = function (trackId){
 								$('.track').removeClass('isPlaying');
@@ -116,6 +131,7 @@ define(["jquery", "soundcloud", "player", "app/df_auth"], function($) {
 							$('#spinner').hide('fastest');
 							
 							$('#thequery').fadeIn();
+							
 
 							//launch the player
 							require(['player'], function (player) {
@@ -125,34 +141,27 @@ define(["jquery", "soundcloud", "player", "app/df_auth"], function($) {
 									$('body').addClass('inplay');
 									console.log('readying track ' + aB.tracks.trk1.id);
 									
-									
-    							$("#player-wrapper").sticky({topSpacing:50});
-						
-
 									//play first result
 									aB.fn.updatePlaying(aB.tracks.trk1.id);
 									aB.tracks.played = 1;
 									
 									var firstSong = '#trk' + aB.tracks.trk1.id;
 									$(firstSong).click();
-								 } else {
-								  // to do
-								 	//alert('no results');
-								 }//end if
+								 }
 							 });//end require;
 							
 						}); // end SC.get	
 						
-  					// reload searches
-  					aB.fn.df_auth();
+  					// reload searches - deprecated
+  					// aB.fn.df_auth();
       	}); // end click
       	
 				//interesting random queries
-				aB.seeds = ['the pixies','dr dre', 'interscope'];
-
+				aB.seeds = ['pixies magnetic monkey','bondax you know'];
 				var seed = aB.seeds[Math.floor(Math.random()*aB.seeds.length)]; // get a random item
 				$('#query').val(seed);
       	
+      	//if ?play url parameter is present then autostart
       	var autostart = aB.fn.getUrlParam('play');
 				if(autostart != false) {
 					autostart = autostart.replaceAll('+', ' ');
@@ -164,10 +173,10 @@ define(["jquery", "soundcloud", "player", "app/df_auth"], function($) {
 				}
       	
       	//handle return key
-      	$('input #query').on('keydown', function(event) { if (event.which === 13 || event.keyCode === 13) { e.preventDefault();$('#thequery button').click(); } });
+      	$('window').on('keydown', function(event) { if (event.which === 13 || event.keyCode === 13) { e.preventDefault();$('#thequery button').click(); } });
       	
       	console.log('soundcloud loaded');
-      	
+      	$('#results').show();
       	
       }); //end outer require
   };
