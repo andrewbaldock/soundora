@@ -66,20 +66,26 @@ define(["jquery", "soundcloud", "player", "app/df_auth"], function($) {
 									var className = $(this).text().toLowerCase();
 									className = className.replaceAll(' ','_');
 									$(this).addClass(className);
-									console.log('gave a search the classname of ' + className);
+									//console.log('gave a search the classname of ' + className);
 							});
 							//prevent dupes
 							console.log('user looked for: ' +usrInput);
 							if ($('.' + usrInputClass).length === 0 ) {
 								//persist query into collection
-								console.log('save ' + usrInput + ' into collection now');
-								aB.searchCollection.models.push( new aB.Search({model: {"id":"","query":usrInput} }) );
+								//console.log('save ' + usrInput + ' into collection now');
+								// WORKS: // aB.searchCollection.models.push( new aB.Search({model: {"id":"","query":usrInput} }) );
+								
+								//WORKING!
+								aB.searchCollection.create( new aB.Search({model: {"id":"","query":usrInput},"query":usrInput }) );
+								
+								//not working:
+								//aB.searchCollection.create( new aB.Search({"id":"","query":usrInput}) );
+								
 								aB.searchCollectionView.render();
 								aB.arranger();
 							} else {
 								console.log('DUPE');
 							}
-				
 				
 				
 							// Show what track is currently playing

@@ -17,11 +17,14 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 			-----------------------------------------------------------------*/
 			aB.Search = Backbone.Model.extend({
 				defaults: {
-					attributes: {
-						query:'',
-						userid:aB.userid
-					}
-				}
+					userid:aB.userid
+				},
+				create: function() {
+					this.save();
+				},
+			/*---------------------------------------------------------------------------------*/
+				url: aB.baseurl + "/db/searches"
+			/*---------------------------------------------------------------------------------*/
 			});
 			
 			/*
@@ -59,18 +62,18 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 				url: aB.baseurl + "/db/searches?filter=userid%3D'" + aB.userid + "'&fields=id,query",
 			/*---------------------------------------------------------------------------------*/
 				parse: function(resp) {
-						console.log('pre-parse: "resp":');
-						console.log(resp);
+						//console.log('pre-parse: "resp":');
+						//console.log(resp);
 						_.each(resp.record, function(data) {
-										console.log('SearchCollection parse: inside each, here is "data":');
-										console.log(data);
+										//console.log('SearchCollection parse: inside each, here is "data":');
+										//console.log(data);
 										this.models.push( new aB.Search({model: data}) ); // genius, essential
 						}, this);
-						console.log(this);
+						//console.log(this);
 				},
 				initialize: function() {
-					console.log('collection initialize: "this":');
-					console.log(this);
+					//console.log('collection initialize: "this":');
+					//console.log(this);
 				}
 			});
 			
@@ -88,8 +91,8 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 						this.render();
 				},
 				render: function() {
-						console.log('post-parse: SearchCollectionView "this.collection":');
-						console.log(this.collection);
+						//console.log('post-parse: SearchCollectionView "this.collection":');
+						//console.log(this.collection);
 						
 						var results = this.collection.models;
             console.log('backbone got ' + results.length + ' search records');
@@ -101,8 +104,8 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 								
 								var self = this;
 								_.each(results, function(data) {
-										console.log('inside each, here is "data":');
-										console.log(data);
+										//console.log('inside each, here is "data":');
+										//console.log(data);
 										self.$el.append( new SearchView({model: data.attributes.model}).render().el);  // genius, essential
 								}, this);
 						
