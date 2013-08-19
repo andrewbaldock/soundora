@@ -119,12 +119,17 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 			/*
 			START get remote data and begin. (use this OR section below)
 			----------------------------------------------------------------*/
-		//	if(aB.userid != 'none') {
-		//	  aB.remotedata = true;
-			  
+
 			  if(typeof aB.searchCollection == 'undefined') {
 					aB.searchCollection = new SearchCollection();
+				} else {
+					//searchcollection exixsts.  refresh its url in case user is logged in
+					if(aB.userid != 'none') {
+						aB.searchCollection.url = aB.baseurl + "/db/searches?filter=userid%3D'" + aB.userid + "'&fields=id,query";
+					}
+				
 				}
+			  
 
 				aB.searchCollection.fetch({
 						success: function() {
@@ -133,7 +138,7 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 									aB.searchCollectionView = new SearchCollectionView({collection: aB.searchCollection});
 								} else {
 									//push new results into existing collectionview
-									aB.searchCollectionView.reset();
+									aB.searchCollectionView.render();
 								}
 						},
 						error: function() {
