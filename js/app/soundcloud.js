@@ -12,7 +12,7 @@ define(["jquery", "soundcloud", "player", "app/df_auth"], function($) {
 				BUTTON CLICK
 				--------------------------------------------------------------*/
       	$('#thequery button').click(function(soundcloud){
-      		$('#thequery').hide();
+      		$('#player-wrapper').hide();
       		$('#spinner').show();
       	
       		var usrInput = $('#thequery input').val(); 

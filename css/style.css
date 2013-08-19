@@ -459,15 +459,24 @@ em#userimg {
 #querywrap {
 	display:inline-block;
 }
-
-@media only screen and (max-width: 1024px) {
+@media only screen and (min-width: 1151px) and (max-width: 1250px)  {
 	#results {
-		width:100%;
-		padding-left:20x;
-		padding-right:20px;
+		width:1140px;
 	}
 }
-@media only screen and (min-width: 767px) and (max-width: 1023px) {
+
+@media only screen and (min-width: 1061px) and (max-width: 1150px)  {
+	#results {
+		width:1050px;
+	}
+}
+
+@media only screen and (min-width: 960px) and (max-width: 1060px)  {
+	#results {
+		width:960px;
+	}
+}
+@media only screen and (min-width: 767px) and (max-width: 959px) {
 	#results {
 		width:795px;
 	}
@@ -484,7 +493,20 @@ em#userimg {
 		line-height:22px;
 	}
 }
-@media only screen and (min-width: 480px) and (max-width: 766px) {
+@media only screen and (min-width: 628px) and (max-width: 766px) {
+	#results {
+		width:628px;
+	}
+	h1 {font-size:58px;}
+	#subtitle {
+		margin-top: -25px;
+		margin-left: 28px;
+		font-size: 22px;
+		line-height:22px;
+		letter-spacing:5px;
+	}
+}
+@media only screen and (min-width: 480px) and (max-width: 627px) {
 	#results {
 		width:490px;
 	}
@@ -521,5 +543,8 @@ em#userimg {
 		font-size: 16px;
 		line-height:16px;
 		letter-spacing:3px;
+	}
+	#query {
+		width:239px
 	}
 }
