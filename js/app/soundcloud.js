@@ -159,7 +159,7 @@ define(["jquery", "soundcloud", "player", "app/df_auth"], function($) {
 				//interesting random queries
 				aB.seeds = ['pixies magnetic monkey','bondax you know'];
 				var seed = aB.seeds[Math.floor(Math.random()*aB.seeds.length)]; // get a random item
-				$('#query').val(seed);
+				//$('#query').val(seed);
       	
       	//if ?play url parameter is present then autostart
       	var autostart = aB.fn.getUrlParam('play');
