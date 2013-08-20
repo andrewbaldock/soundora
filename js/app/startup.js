@@ -7,9 +7,43 @@
 
 // declare the aB object
 aB={fn:{}};
-aB.userid = 'none';
 aB.baseurl = "https://dsp-soundora.cloud.dreamfactory.com/rest";
 aB.apikey = '?app_name=soundora';
+
+//cookie read
+aB.readCookie = function (name) {
+	var nameEQ = name + "=";
+	var ca = document.cookie.split(';');
+	for (var i = 0; i < ca.length; i++) {
+		var c = ca[i];
+		while (c.charAt(0) == ' ') {c = c.substring(1, c.length);}
+		if (c.indexOf(nameEQ) === 0) {return c.substring(nameEQ.length, c.length);}
+	}
+	return null;
+};
+// cookie write
+aB.writeCookie = function (name, value, days) {
+	var expires = "";
+	if (days) {
+		var date = new Date();
+		date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+		expires = "; expires=" + date.toGMTString();
+	}
+	document.cookie = name + "=" + value + expires + "; path=/; domain=andrewbaldock.com";
+};
+
+//set temp userid
+(function tempId(){
+	var c = aB.readCookie('soundora');
+	if (c != null) {
+		aB.userid = c;
+	} else {
+		var d = new Date;
+		var t = d.getTime();
+		aB.userid = 'temp' + t;
+		aB.writeCookie('soundora',aB.userid,365);
+	}
+}());
 
 requirejs.config({
     "baseUrl": "js/lib",

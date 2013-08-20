@@ -98,7 +98,7 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
             console.log('backbone got ' + results.length + ' search records');
 						
 						if (results.length === 0) {
-							this.$el.html('<h3>Search for an Artist, Song, or Genre<br>to create Soundora Stations</h3>');
+							this.$el.html('<h3>Welcome!</h3>');
 						} else {
 								this.$el.html('');
 								
