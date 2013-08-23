@@ -22,7 +22,10 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 				create: function() {
 					this.save();
 				},
-			/*---------------------------------------------------------------------------------*/
+				remove: function() {
+					this.destroy();
+				},
+/*---------------------------------------------------------------------------------*/
 				url: aB.baseurl + "/db/searches"
 			/*---------------------------------------------------------------------------------*/
 			});
@@ -34,6 +37,7 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 				model:aB.Search,
 				/* tagName: "li", */     // auto-wrap in an html element
 				template: _.template($("#searches-template").html()),
+				url: aB.baseurl + "/db/searches",
 				render: function() {
 						this.$el.html(this.template(this.model));
 						return this;
@@ -50,6 +54,17 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 				deleteSearch: function(event){
 					console.log( 'delete search ' + this.model.query );
 					console.log(this);
+					console.log(this.model.id);
+					
+					aB.searchCollection.remove(this.model);
+/*
+					//COMPLETELY UNBIND THE VIEW
+					this.undelegateEvents();
+					this.$el.removeData().unbind(); 
+					//Remove view from DOM
+					this.remove();  
+					Backbone.View.prototype.remove.call(this);
+	*/				
 				}
 			});
 
@@ -64,16 +79,26 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 				parse: function(resp) {
 						//console.log('pre-parse: "resp":');
 						//console.log(resp);
+						aB.mcount = 0;
 						_.each(resp.record, function(data) {
 										//console.log('SearchCollection parse: inside each, here is "data":');
 										//console.log(data);
-										this.models.push( new aB.Search({model: data}) ); // genius, essential
+										aB['model'+ aB.mcount] = new aB.Search({model: data}); 
+										this.models.push( aB['model'+ aB.mcount] ); // genius, essential
+										aB.mcount=aB.mcount+1;
 						}, this);
 						//console.log(this);
 				},
 				initialize: function() {
 					//console.log('collection initialize: "this":');
 					//console.log(this);
+				},
+				remove: function(model){
+					console.log('inside collection remove');
+					console.log(model.id);
+
+					
+					//xmodel.destroy();
 				}
 			});
 			
@@ -89,6 +114,10 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
     				this.collection.on("remove", this.render, this);
     				this.collection.on("push", this.render, this);
 						this.render();
+				},
+				remove: function() {
+					var zmodel = this.model.get(this.model.id);
+					zmodel.destroy();
 				},
 				render: function() {
 						//console.log('post-parse: SearchCollectionView "this.collection":');

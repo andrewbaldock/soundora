@@ -1,5 +1,5 @@
 /* googlefonts */
-@import url(//fonts.googleapis.com/css?family=Codystar|Supermercado+One|Share:400,400italic);
+@import url(//fonts.googleapis.com/css?family=Codystar|Montserrat);
 
 /* fontawesome */
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css);
@@ -16,9 +16,10 @@ html {
 #playzoom{font-size:150px;color:white;display:none;margin-left:50%;margin-right:auto;margin-top:300px;}
 
 html {
-    font-family: 'Share', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     text-align: center;
-    background: url('../img/dark_exa.png') #333; 
+    background: url('../img/navy_blue.png') #333; 
+   /* background: url('../img/crest.gif') #333; */
     background-attachment: fixed;
     /* background: url('../img/escheresque_ste_@2X.png') #fff; */
     /* background: url('../img/colourlovers-pattern-1243991-modernmusic-tweaked.gif') rgba(0, 172, 226, 0.74);  */
@@ -49,7 +50,8 @@ a:active {
 }
 
 h1, h2, h3, h4, h5 {
-    font-family: 'Supermercado One', cursive;
+    /*font-family: 'Supermercado One', cursive;*/
+    font-family: 'Codystar', sans-serif;
     color: rgba(0, 172, 226, 0.99);
     margin-bottom: -15px;
 }
@@ -67,19 +69,53 @@ h1 {
 
 #subtitle {
     font-size: 24px;
-    font-family: Supermercado One;
-    color: rgba(133, 119, 125, 0.69);
+    font-family: 'Montserrat', sans-serif;
+    color: #999;
     line-height: 25px;
-    margin-top: 0px;
-    margin-left: 50px;
-    letter-spacing: 7px;
+    margin-top: -10px;
+    letter-spacing: 3px;
+}
+
+
+
+.help, .help:hover {
+	color:#57D4EC;
+	font-size: 14px;
+	position:absolute;
+	left:10px;
+	top:10px;
+	text-align:left;
+	
+}
+
+.help:hover #help {
+
+	display:block;
+	z-index:1000;
+}
+
+
+#help {
+
+	display:block;
+	margin:10px 30px 10px 20px;
+	background: #000000;
+	color:#fff;
+	font-size:18px;
+	padding:20px;
+	top:30px;
+}
+
+
+#help{
+	display:none;
 }
 
 .field {
     height: 30px;
     font-size: 25px;
-    line-height: 25px;
-    font-family: 'Supermercado One', cursive;
+    line-height: 30px;
+    font-family: 'Montserrat', sans-serif;
     color: #222;
 }
 
@@ -178,6 +214,7 @@ button:hover {
     color: #777;
 }
 
+
 #tippytop {
     font-size: 14px;
     z-index: 5;
@@ -187,7 +224,7 @@ button:hover {
     position: absolute;
     top: 0px;
     right: 15px;
-    font-family:helvetica;
+    /*font-family:helvetica;*/
 }
 
 .inplay #tippytop {
@@ -396,11 +433,11 @@ em#userimg {
 	border: 1px rgba(0, 0, 0, 0.18) solid;
 	padding: 4px;
 	margin-bottom: 6px;
-
+    font-family: 'Montserrat', sans-serif;
 	color: #E6E6E6;
 	font-size: 14px;
 	line-height:14px;
-	background-color: rgba(2, 106, 139, 0.90);
+	background-color: rgba(2, 106, 139, 0.4);
 	text-align: left;
 	padding-left: 14px;
 
