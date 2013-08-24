@@ -12,138 +12,87 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
   			'X-DreamFactory-Application-Name':'soundora'
   		}});
   		
-  		/*
-			MODEL: individual Search item
-			-----------------------------------------------------------------*/
+			//////////////////////////
+			// 
+			//  1. MODEL
+			// 
+			//////////////////////////
 			aB.Search = Backbone.Model.extend({
 				defaults: {
+					id:null,
+					query:null,
 					userid:aB.userid
 				},
-				create: function() {
-					this.save();
-				},
-				remove: function() {
-					this.destroy();
-				},
-/*---------------------------------------------------------------------------------*/
 				url: aB.baseurl + "/db/searches"
-			/*---------------------------------------------------------------------------------*/
 			});
 			
-			/*
-			VIEW / model: Item view for a single search - uses templates
-			-----------------------------------------------------------------*/
+			
+			//////////////////////////
+			// 
+			//  2. COLLECTION
+			// 
+			//////////////////////////
+			var SearchCollection = Backbone.Collection.extend({
+				model: aB.Search,
+				url: aB.baseurl + "/db/searches?filter=userid%3D'" + aB.userid + "'&fields=id,query" ,
+				parse: function(resp) {
+						console.log('pre-parse: "resp.record":');
+						console.log(resp.record);
+						return resp.record;
+				} 
+			});
+			
+			//////////////////////////
+			// 
+			//  3. VIEW
+			// 
+			//////////////////////////
 			var SearchView = Backbone.View.extend({
-				model:aB.Search,
-				/* tagName: "li", */     // auto-wrap in an html element
-				template: _.template($("#searches-template").html()),
-				url: aB.baseurl + "/db/searches",
-				render: function() {
-						this.$el.html(this.template(this.model));
-						return this;
-				},
+				
+				el: $('#savedsearches'),
+				
+				initialize: function(){
+        	this.el = $(this.el);
+        	this.render();
+    		},
+    		
 				events: {
 					'click .asearch': 'doSearch',
-					'click .delete': 'deleteSearch'
+					'click .delete': 'deleteSearch',
+					// Debug
+        	'click #print-collection': 'printCollection'
 				},
+				
+				template: $('#searches-template').html(),
+
+				render: function(id,query) {
+						var templ = _.template(this.template);
+						var id = 
+						this.el.children('ul').append(templ({id: id,query: query}));
+				},
+				// additem function goes here
 				doSearch: function(){
 					console.log('play station ' + this.model.query);
 					$('input#query').val( this.model.query);
 					$('#thequery button').click();
 				},
-				deleteSearch: function(event){
-					console.log( 'delete search ' + this.model.query );
-					console.log(this);
-					console.log(this.model.id);
-					
-					aB.searchCollection.remove(this.model);
-/*
-					//COMPLETELY UNBIND THE VIEW
-					this.undelegateEvents();
-					this.$el.removeData().unbind(); 
-					//Remove view from DOM
-					this.remove();  
-					Backbone.View.prototype.remove.call(this);
-	*/				
-				}
-			});
+				deleteSearch: function(e) {
+					var thisid = this.$(e.currentTarget).parent('div').data("id");
+					var thisitem = this.collection.get(thisid);
+					this.collection.remove(thisitem);
+					// Remove from DOM
+					$(e.target).parent('li')
+							.fadeOut(300,function() {
+									$(this).remove();
+							});
+    		},
+    		printCollection: function(){
+        	this.collection.each(function(item) {
+            console.log(item.get('query'));
+        	});
+    		}
 
-			/*
-			COLLECTION: list of Searches
-			-----------------------------------------------------------------*/
-			var SearchCollection = Backbone.Collection.extend({
-				model: aB.Search,
-			/*---------------------------------------------------------------------------------*/
-				url: aB.baseurl + "/db/searches?filter=userid%3D'" + aB.userid + "'&fields=id,query",
-			/*---------------------------------------------------------------------------------*/
-				parse: function(resp) {
-						//console.log('pre-parse: "resp":');
-						//console.log(resp);
-						aB.mcount = 0;
-						_.each(resp.record, function(data) {
-										//console.log('SearchCollection parse: inside each, here is "data":');
-										//console.log(data);
-										aB['model'+ aB.mcount] = new aB.Search({model: data}); 
-										this.models.push( aB['model'+ aB.mcount] ); // genius, essential
-										aB.mcount=aB.mcount+1;
-						}, this);
-						//console.log(this);
-				},
-				initialize: function() {
-					//console.log('collection initialize: "this":');
-					//console.log(this);
-				},
-				remove: function(model){
-					console.log('inside collection remove');
-					console.log(model.id);
-
-					
-					//xmodel.destroy();
-				}
 			});
-			
-			/*
-			VIEW / collection: List view to render the search collection into
-			-----------------------------------------------------------------*/
-			var SearchCollectionView = Backbone.View.extend({
-				el: $('#savedsearches'),
-				initialize: function() {
-						// not sure these are doing anything
-						this.collection.on("reset", this.render, this);
-    				this.collection.on("add", this.render, this);
-    				this.collection.on("remove", this.render, this);
-    				this.collection.on("push", this.render, this);
-						this.render();
-				},
-				remove: function() {
-					var zmodel = this.model.get(this.model.id);
-					zmodel.destroy();
-				},
-				render: function() {
-						//console.log('post-parse: SearchCollectionView "this.collection":');
-						//console.log(this.collection);
-						
-						var results = this.collection.models;
-            console.log('backbone got ' + results.length + ' search records');
-						
-						if (results.length === 0) {
-							this.$el.html('<h3>Welcome!</h3>');
-						} else {
-								this.$el.html('');
-								
-								var self = this;
-								_.each(results, function(data) {
-										//console.log('inside each, here is "data":');
-										//console.log(data);
-										self.$el.append( new SearchView({model: data.attributes.model}).render().el);  // genius, essential
-								}, this);
-						
-						 }
-						 aB.arranger();
-					}
-			});
-
-			
 
 			/*
 			START get remote data and begin. (use this OR section below)
@@ -162,27 +111,18 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 
 				aB.searchCollection.fetch({
 						success: function() {
-								console.log('backbone collection activated: user logged in');
-								if(typeof aB.searchCollectionView == 'undefined') {
-									aB.searchCollectionView = new SearchCollectionView({collection: aB.searchCollection});
+								console.log('backbone got ' + aB.searchCollection.length + ' search records');
+								if(typeof aB.searchView == 'undefined') {
+									aB.searchView = new SearchView({collection: aB.searchCollection});
 								} else {
 									//push new results into existing collectionview
-									aB.searchCollectionView.render();
+									aB.searchView.render();
 								}
 						},
 						error: function() {
 								console.log('backbone collection activated: oh noes fetch fail');
 						}
 				}); 
-		//	} else { 
-		//		console.log('backbone collection activated: user not logged in');
-		//	};
-		
-			//to ADD a record, this works awesome
-			/*
-			aB.searchCollection.models.push( new aB.Search({model: {"id":"5","query":"inside my love disco"} }) );
-			aB.searchCollectionView.render();
-			*/
 
 
 			

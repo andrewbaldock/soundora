@@ -79,14 +79,18 @@
 			
 				
 				<div id="savedsearches">
-					<!--<h3><a href="#" class="signin-link">Sign in</a><br>to see your<br>stations</h3>-->
-				</div>
+				<!-- Debug -->
+        <a id="print-collection">Print Collection to Console</a>
+        </div>
 				<script type="text/template" id="searches-template">
-					<div class="asearch-wrap" id="search<%= id %>">
+					<div class="asearch-wrap" id="search<%= id %>" data-id="<%= id %>">
 						<a href="#" class="delete">X</a>
 						<a href="#" class="asearch"><%= query %></a>
 					</div>
 				</script>
+				
+				
+    		
 				
 				
 				<center>
