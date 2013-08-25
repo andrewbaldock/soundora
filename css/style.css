@@ -59,17 +59,21 @@ h1, h2, h3, h4, h5 {
 
 h1 {
     font-size: 65px;
-    display: block;
+    display: inline-block;
 	/*background:url('../img/effect_2.png');*/
-    width: 100%;
-    color:rgba(0, 172, 226, 0.74);
+    width: 340px;
+    color:#fff;
     font-weight:500;
     font-style:italic;
-   
+		background-color: rgba(0, 200, 218, 1);
+		border-radius: 40px;
+		border: 5px solid whitesmoke;
 }
 
 .inplay h1 {
-	font-size:45px;
+	font-size: 45px;
+	width: 260px;
+
 }
 
 
@@ -81,6 +85,7 @@ h1 {
     letter-spacing: 3px;
 		margin-top:-25px
 		padding;7px;
+		text-shadow:0px 2px 3px #222;
 }
 
 .inplay #subtitle {
@@ -143,7 +148,7 @@ input:focus {
 #thequery button {
     width: 50px;
     color: #fff;
-    background-color: rgba(0, 172, 226, 0.74);
+    background-color:  rgba(0, 200, 218, 1);
     height: 35px;
     font-size: 25px;
     line-height: 25px;
@@ -156,7 +161,7 @@ button {
     padding-right: 10px;
     padding-left: 10px;
     color: #fff;
-    background-color: rgba(0, 172, 226, 0.74);
+    background-color:  rgba(0, 200, 218, 1);
     height: 34px;
     font-size: 25px;
     line-height: 27px;
@@ -288,8 +293,12 @@ button:active {
 }
 
 #main {
-    width: 100%;
-    margin-top: -30px;
+	margin-top: -30px;
+	display: inline-block;
+	border-bottom-left-radius: 30px;
+	border-bottom-right-radius: 30px;
+	/*padding:0px 30px;*/
+	width:100%;
 }
 
 #player-wrapper {
@@ -318,7 +327,7 @@ header {
     background-color: rgba(0, 172, 226, 1.00);
     height: 112px;
     width: 112px;
-    border: 8px solid rgba(0, 172, 226, 0.74);
+    border: 8px solid  rgba(0, 200, 218, 1);
     box-shadow:0px 0px 10px #fff;
 }
 
@@ -440,20 +449,19 @@ em#userimg {
 .asearch {
 	border-radius: 3px;
 	border: 1px rgba(0, 0, 0, 0.18) solid;
-	padding: 4px;
+	padding: 2px;
 	margin-bottom: 6px;
     font-family: 'Montserrat', sans-serif;
 	color: #E6E6E6;
 	font-size: 14px;
-	line-height:14px;
-	background-color: rgba(2, 106, 139, 0.4);
+	line-height:26px;
+	background-color: rgba(0, 200, 218, 1);
 	text-align: left;
 	padding-left: 14px;
 
 }
 .asearch-wrap{
-	display:block;
-	float:left;
+	display:inline-block;
 }
 	
 .asearch:hover {

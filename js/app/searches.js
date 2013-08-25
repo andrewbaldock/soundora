@@ -65,7 +65,7 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 				render: function(id,query) {
 						var templ = _.template(this.template);
 						var id = 
-						this.el.children('ul').append(templ({id: id,query: query}));
+						this.el.append(templ({id: id,query: query}));
 				},
 				// additem function goes here
 				doSearch: function(e){
@@ -75,20 +75,20 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 					$('#thequery button').click();
 				},
 				showAll: function(){
-					$('#savedsearches').html('<ul></ul>');
+					$('#savedsearches').html('');
 					aB.searchCollection.each(function(item){
 						aB.searchView.render(item.get('id'),item.get('query'));
 					});
 				},
 				deleteSearch: function(e) {
-					var id = this.$(e.target).parent('li').data("id");
+					var id = this.$(e.target).parent('div').data("id");
 					var query = this.$(e.target).text();
 					console.log('deleting id ' + id);
 					var wut = aB.searchCollection.get(id);
 					wut.destroy();
 					aB.searchCollection.remove(id);
 					// Remove from DOM
-					$(e.target).parent('li')
+					$(e.target).parent('div')
 							.fadeOut(300,function() {
 									$(this).remove();
 							});
