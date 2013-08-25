@@ -112,9 +112,15 @@ define(["jquery", "soundcloud", "player", "app/df_auth"], function($) {
 							}
 						
 						  $('.track').click(function(){
+						  	
 								var Id = this.id.replace('trk','');
 								var url = 'http://api.soundcloud.com/tracks/' + Id;
+								console.log(this);
 								
+								var bg = $(this).css('background-image');
+								
+								$('html').css('background-image', bg).css('background-size','50%')//.css('background-repeat','no-repeat');
+
 								var iframe = document.querySelector('#widget');
 								iframe.src = 'https://w.soundcloud.com/player/?url=' + url + sc_options;		
 								

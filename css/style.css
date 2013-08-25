@@ -18,7 +18,8 @@ html {
 html {
     font-family: 'Montserrat', sans-serif;
     text-align: center;
-    background: url('../img/navy_blue.png') #333; 
+  	/* background: url('../img/navy_blue.png') #333; */
+  	background: #fff;
    /* background: url('../img/crest.gif') #333; */
     background-attachment: fixed;
     /* background: url('../img/escheresque_ste_@2X.png') #fff; */
@@ -57,27 +58,34 @@ h1, h2, h3, h4, h5 {
 }
 
 h1 {
-    font-size: 75px;
-    line-height: 95px;
+    font-size: 65px;
     display: block;
 	/*background:url('../img/effect_2.png');*/
     width: 100%;
-    margin-top: 20px;
-    rgba(0, 172, 226, 0.74);
+    color:rgba(0, 172, 226, 0.74);
     font-weight:500;
     font-style:italic;
+   
+}
+
+.inplay h1 {
+	font-size:45px;
 }
 
 
 #subtitle {
     font-size: 24px;
     font-family: 'Montserrat', sans-serif;
-    color: #999;
+    color: #fff;
     line-height: 25px;
-    margin-top: -10px;
     letter-spacing: 3px;
+		margin-top:-25px
+		padding;7px;
 }
 
+.inplay #subtitle {
+	font-size:18px;
+}
 
 
 .help, .help:hover {
@@ -526,8 +534,7 @@ em#userimg {
 	}
 	h1 {font-size:63px;}
 	#subtitle {
-		margin-top: -15px;
-		margin-left: 10px;
+
 		font-size: 22px;
 		line-height:22px;
 	}
@@ -538,8 +545,7 @@ em#userimg {
 	}
 	h1 {font-size:58px;}
 	#subtitle {
-		margin-top: -25px;
-		margin-left: 28px;
+	
 		font-size: 22px;
 		line-height:22px;
 		letter-spacing:5px;
@@ -551,8 +557,7 @@ em#userimg {
 	}
 	h1 {font-size:58px;}
 	#subtitle {
-		margin-top: -25px;
-		margin-left: 28px;
+		
 		font-size: 22px;
 		line-height:22px;
 		letter-spacing:5px;
@@ -564,8 +569,7 @@ em#userimg {
 	}
 	h1 {font-size:50px;}
 	#subtitle {
-		margin-top: -30px;
-		margin-left: 15px;
+		
 		font-size: 19px;
 		line-height:19px;
 		letter-spacing:3px;
@@ -577,8 +581,7 @@ em#userimg {
 	}
 	h1 {font-size:45px;}
 	#subtitle {
-		margin-top: -30px;
-		margin-left: 20px;
+		
 		font-size: 16px;
 		line-height:16px;
 		letter-spacing:3px;
