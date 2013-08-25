@@ -1,5 +1,5 @@
 /* googlefonts */
-@import url(//fonts.googleapis.com/css?family=Codystar|Montserrat);
+@import url(//fonts.googleapis.com/css?family=Montserrat|Exo:500italic);
 
 /* fontawesome */
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css);
@@ -51,7 +51,7 @@ a:active {
 
 h1, h2, h3, h4, h5 {
     /*font-family: 'Supermercado One', cursive;*/
-    font-family: 'Codystar', sans-serif;
+    font-family: 'Exo', sans-serif;
     color: rgba(0, 172, 226, 0.99);
     margin-bottom: -15px;
 }
@@ -64,6 +64,8 @@ h1 {
     width: 100%;
     margin-top: 20px;
     rgba(0, 172, 226, 0.74);
+    font-weight:500;
+    font-style:italic;
 }
 
 
