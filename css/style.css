@@ -98,8 +98,7 @@ h1 {
 
 
 #help {
-
-	display:block;
+	z-index:50;
 	margin:10px 30px 10px 20px;
 	background: #000000;
 	color:#fff;
@@ -488,6 +487,7 @@ em#userimg {
 	margin-left: -19px;
 	padding-left: 2px;
 	color: #D1CCCC;
+	z-index:5;
 }
 #searchclear:hover {
 	color:#FF0085;

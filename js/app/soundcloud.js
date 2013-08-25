@@ -71,18 +71,25 @@ define(["jquery", "soundcloud", "player", "app/df_auth"], function($) {
 							//prevent dupes
 							console.log('user looked for: ' +usrInput);
 							if ($('.' + usrInputClass).length === 0 ) {
-								//persist query into collection
-								//console.log('save ' + usrInput + ' into collection now');
+								console.log('save ' + usrInput + ' into collection now');
+								
 								// WORKS: // aB.searchCollection.models.push( new aB.Search({model: {"id":"","query":usrInput} }) );
 								
-								//WORKING!
-								aB.searchCollection.create( new aB.Search({model: {"id":"","query":usrInput},"query":usrInput }) );
+								//aB.searchView.render(null,usrInput);
+								var mod = new aB.Search({"query":usrInput });
 								
-								//not working:
-								//aB.searchCollection.create( new aB.Search({"id":"","query":usrInput}) );
-								
-								aB.searchCollectionView.render();
-								aB.arranger();
+								mod.save({},{success: function(model) {
+									console.log('save model to db:success');
+									aB.searchCollection.fetch(				{
+										success: function() {
+											aB.searchView.showAll()
+											aB.arranger();
+										},
+										error: function() {}
+									});		
+								}});
+	
+
 							} else {
 								console.log('DUPE');
 							}
