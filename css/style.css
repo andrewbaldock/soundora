@@ -62,34 +62,33 @@ h1 {
     display: inline-block;
 	/*background:url('../img/effect_2.png');*/
     width: 340px;
-    color:#fff;
+    color: rgba(0, 200, 218, 1);
     font-weight:500;
     font-style:italic;
-		background-color: rgba(0, 200, 218, 1);
-		border-radius: 40px;
-		border: 5px solid whitesmoke;
+    margin-top: 7px;
+margin-bottom: 20px;
 }
 
 .inplay h1 {
-	font-size: 45px;
-	width: 260px;
-
+font-size: 45px;
+margin-top: 10px;
+margin-bottom: 12px;
+color:#fff;
 }
 
 
 #subtitle {
-    font-size: 24px;
+    font-size: 24px; 
     font-family: 'Montserrat', sans-serif;
-    color: #fff;
+    color: rgba(0, 200, 218, 1);
     line-height: 25px;
     letter-spacing: 3px;
-		margin-top:-25px
+		margin-top:-25px;
 		padding;7px;
-		text-shadow:0px 2px 3px #222;
 }
 
 .inplay #subtitle {
-	font-size:18px;
+	display:none;
 }
 
 
@@ -305,16 +304,14 @@ button:active {
     display: none;
     width: 100%; 
     height: 115px;
-    background-color:rgba(0, 172, 226,0.66);
+   /* background-color:rgba(0, 172, 226,0.66); */
     box-shadow: 0px 5px 20px #000;
 }
 
 #player {
     display: inline-block;
-    width: 94%;
+    
     height: 120px;
-
-
 }
 
 header {
@@ -433,7 +430,7 @@ em#userimg {
 	width: 98%;
 	display: inline-block;
 	margin-bottom:20px;
-	margin-top:20px;
+	margin-top:12px;
 	}
 
 #savedsearches h3{
@@ -447,17 +444,16 @@ em#userimg {
 
 
 .asearch {
-	border-radius: 3px;
-	border: 1px rgba(0, 0, 0, 0.18) solid;
-	padding: 2px;
-	margin-bottom: 6px;
-    font-family: 'Montserrat', sans-serif;
-	color: #E6E6E6;
-	font-size: 14px;
-	line-height:26px;
-	background-color: rgba(0, 200, 218, 1);
-	text-align: left;
-	padding-left: 14px;
+border-radius: 3px;
+border: 1px rgba(0, 0, 0, 0.18) solid;
+padding: 3px;
+font-family: 'Montserrat', sans-serif;
+color: #FFFFFF;
+font-size: 14px;
+line-height: 28px;
+background-color: rgba(29, 219, 255, 0.75);
+text-align: left;
+padding-left: 18px;
 
 }
 .asearch-wrap{
@@ -477,13 +473,13 @@ em#userimg {
 
 .delete {
 	position: relative;
-	left: 18px;
-	padding: 4px;
-
-	color:#777;
-	font-size:14px;
-	line-height:14px;
+	left: 17px;
+	color: #777;
+	font-size: 14px;
+	line-height: 14px;
 	border-radius: 3px 0px 0px 3px;
+	margin-left: -14px;
+	padding:2px;
 }
 .delete:hover {
 	background-color:#FF0085;
@@ -530,10 +526,16 @@ em#userimg {
 	#results {
 		width:960px;
 	}
+	#player {
+		width:910px;
+	}
 }
 @media only screen and (min-width: 767px) and (max-width: 959px) {
 	#results {
 		width:795px;
+	}
+	#player {
+		width:760px;
 	}
 }
 @media only screen and (max-width: 766px) {
@@ -550,6 +552,7 @@ em#userimg {
 @media only screen and (min-width: 628px) and (max-width: 766px) {
 	#results {
 		width:628px;
+		margin-left:-12px;
 	}
 	h1 {font-size:58px;}
 	#subtitle {
@@ -557,6 +560,9 @@ em#userimg {
 		font-size: 22px;
 		line-height:22px;
 		letter-spacing:5px;
+	}
+	#player {
+		width:600px;
 	}
 }
 @media only screen and (min-width: 480px) and (max-width: 627px) {
@@ -569,7 +575,11 @@ em#userimg {
 		font-size: 22px;
 		line-height:22px;
 		letter-spacing:5px;
+	}	
+	#player {
+		width:450px;
 	}
+
 }
 @media screen and (max-width : 479px) {
 	#results {
@@ -581,6 +591,9 @@ em#userimg {
 		font-size: 19px;
 		line-height:19px;
 		letter-spacing:3px;
+	}
+	#player {
+		width:450px;
 	}
 }
 @media screen and (max-width : 399px) {
@@ -596,5 +609,8 @@ em#userimg {
 	}
 	#query {
 		width:239px
+	}
+	#player {
+		width:300px;
 	}
 }

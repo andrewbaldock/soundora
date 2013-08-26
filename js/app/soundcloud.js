@@ -119,7 +119,7 @@ define(["jquery", "soundcloud", "player", "app/df_auth"], function($) {
 								
 								var bg = $(this).css('background-image');
 								
-								$('html').css('background-image', bg).css('background-size','50%')//.css('background-repeat','no-repeat');
+								$('html').css('background-image', bg).css('background-size','34%')//.css('background-repeat','no-repeat');
 
 								var iframe = document.querySelector('#widget');
 								iframe.src = 'https://w.soundcloud.com/player/?url=' + url + sc_options;		
