@@ -1,6 +1,6 @@
 /* github.com/andrewbaldock/soundora */
 
-define(["jquery", "underscore", "app/df_auth", "json2", "player", "backbone", "app/searches",  "app/soundcloud"], function($) {
+define(["jquery", "underscore", "app/df_auth", "json2", "player", "backbone", "app/searches",  "app/soundcloud", "sticky"], function($) {
     
     $(function() {
     

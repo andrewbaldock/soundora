@@ -1,6 +1,6 @@
 /* github.com/andrewbaldock/soundora */
 		
-define(["jquery", "soundcloud", "player", "app/df_auth"], function($) {
+define(["jquery", "soundcloud", "player", "app/df_auth", "sticky"], function($, sticky) {
   aB.fn.soundcloud = function(soundcloud) {
       require(['soundcloud'], function (soundcloud) {
       	
@@ -69,7 +69,8 @@ define(["jquery", "soundcloud", "player", "app/df_auth"], function($) {
 									//console.log('gave a search the classname of ' + className);
 							});
 							//prevent dupes
-							console.log('user looked for: ' +usrInput);
+							console.log('user looked for: ' + usrInput);
+							aB.writeCookie('soundora-last-search', usrInput, 365);
 							if ($('.' + usrInputClass).length === 0 ) {
 								console.log('save ' + usrInput + ' into collection now');
 								
@@ -150,7 +151,7 @@ define(["jquery", "soundcloud", "player", "app/df_auth"], function($) {
 							require(['player'], function (player) {
 								if (aB.tracks.trk1.kind != undefined) {
 									//expose the player
-									$('#player-wrapper').show('slowest');
+									$('#player-wrapper').show('slowest').sticky({topSpacing:2});
 									$('body').addClass('inplay');
 									console.log('readying track ' + aB.tracks.trk1.id);
 									
@@ -176,14 +177,17 @@ define(["jquery", "soundcloud", "player", "app/df_auth"], function($) {
       	
       	//if ?play url parameter is present then autostart
       	var autostart = aB.fn.getUrlParam('play');
-				if(autostart != false) {
-					autostart = autostart.replaceAll('+', ' ');
-					autostart = autostart.replaceAll('%20', ' ');
-					$('#query').val(autostart);
-					$('#thequery button').click();
-				} else {
-					$('#thequery input#query').focus();
-				}
+      	if(!autostart) { autostart = aB.readCookie('soundora-last-search'); }
+
+		if(autostart) {
+			autostart = autostart.replaceAll('+', ' ');
+			autostart = autostart.replaceAll('%20', ' ');
+			$('#query').val(autostart);
+			$('#thequery button').click();
+		} else {
+
+			$('#thequery input#query').focus();
+		}
       	
       	//handle return key
       	$('window').on('keydown', function(event) { if (event.which === 13 || event.keyCode === 13) { e.preventDefault();$('#thequery button').click(); } });
