@@ -1,4 +1,4 @@
-/* github.com/andrewbaldock/soundora */
+/* github.com/andrewbaldock/skylabfm */
 aB.loopcounter=0;
 define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_auth) {
   aB.fn.Searches = function() {

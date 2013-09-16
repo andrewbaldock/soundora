@@ -1,4 +1,4 @@
-/* github.com/andrewbaldock/soundora */
+/* github.com/andrewbaldock/skylabfm */
 		
 define(["jquery", "soundcloud", "player", "app/df_auth", "sticky"], function($, sticky) {
   aB.fn.soundcloud = function(soundcloud) {
@@ -23,7 +23,7 @@ define(["jquery", "soundcloud", "player", "app/df_auth", "sticky"], function($, 
       		//fire up soundcloud
       		SC.initialize({
     				client_id: '3b56bf42a48bcfe2379a7950bc9dcf95',
-    				redirect_uri: "http://andrewbaldock.com/soundora/callback.html"
+    				redirect_uri: "http://skylabfm.com/soundora/callback.html"
   				});
 					
 					console.log('searching on ' + usrInput);

@@ -1,4 +1,4 @@
-/* github.com/andrewbaldock/soundora */
+/* github.com/andrewbaldock/skylabfm */
 
 // Place third party dependencies in the lib folder
 //
@@ -29,7 +29,7 @@ aB.writeCookie = function (name, value, days) {
 		date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
 		expires = "; expires=" + date.toGMTString();
 	}
-	document.cookie = name + "=" + value + expires + "; path=/; domain=andrewbaldock.com";
+	document.cookie = name + "=" + value + expires + "; path=/; domain=skylabfm.com";
 };
 
 //set temp userid

@@ -1,4 +1,4 @@
-/* github.com/andrewbaldock/soundora */
+/* github.com/andrewbaldock/skylabfm */
 
 define(["jquery", "underscore", "app/df_auth", "json2", "player", "backbone", "app/searches",  "app/soundcloud", "sticky"], function($) {
     
