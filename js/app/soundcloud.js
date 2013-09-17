@@ -59,42 +59,35 @@ define(["jquery", "soundcloud", "player", "app/df_auth", "sticky"], function($, 
 							console.log('#tracks: ' + aB.tracksarray.length);
 							var sc_options = '&show_artwork=true&auto_play=true&show_comments=true&enable_api=true&sharing=true&color=00BCD3'
 							
-							
-							// give each search a classname of its text
-							var usrInputClass = usrInput.toLowerCase().replaceAll(' ' , '_');
-							$('.asearch').each( function() {
-									var className = $(this).text().toLowerCase();
-									className = className.replaceAll(' ','_');
-									$(this).addClass(className);
-									//console.log('gave a search the classname of ' + className);
-							});
-							//prevent dupes
 							console.log('user looked for: ' + usrInput);
-							aB.writeCookie('soundora-last-search', usrInput, 365);
-							if ($('.' + usrInputClass).length === 0 ) {
+							aB.writeCookie('skylabfm-last-search', usrInput, 365);
+							
+							var dupe = false
+							_.each(aB.searchCollection.models, function (model) {
+								if(model.attributes.query === usrInput) {
+									dupe = true;
+								}
+				            });
+
+							if(!dupe) {
 								console.log('save ' + usrInput + ' into collection now');
-								
-								// WORKS: // aB.searchCollection.models.push( new aB.Search({model: {"id":"","query":usrInput} }) );
-								
-								//aB.searchView.render(null,usrInput);
-								var mod = new aB.Search({"query":usrInput });
-								
-								mod.save({},{success: function(model) {
+								var modl = new aB.Search({"query":usrInput });
+								modl.save({},{success: function(model) {
 									console.log('save model to db:success');
-									aB.searchCollection.fetch(				{
+									aB.searchCollection.fetch({
 										success: function() {
-											aB.searchView.showAll()
+											aB.searchView.showAll();
 											aB.arranger();
 										},
 										error: function() {}
 									});		
 								}});
-	
 
 							} else {
 								console.log('DUPE');
 							}
-				
+
+
 				
 							// Show what track is currently playing
 							aB.fn.updatePlaying = function (trackId){
@@ -177,7 +170,7 @@ define(["jquery", "soundcloud", "player", "app/df_auth", "sticky"], function($, 
       	
       	//if ?play url parameter is present then autostart
       	var autostart = aB.fn.getUrlParam('play');
-      	if(!autostart) { autostart = aB.readCookie('soundora-last-search'); }
+      	if(!autostart) { autostart = aB.readCookie('skylabfm-last-search'); }
 
 		if(autostart) {
 			autostart = autostart.replaceAll('+', ' ');
