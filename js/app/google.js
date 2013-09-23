@@ -35,12 +35,18 @@ function handleAuthResult(authResult) {
 					$('#user').html(theoutput)
 				}
 				aB.user=resp;	
+
+				//in case temp user has searches, preserve them for signed in user
+				if(aB.searchView && aB.usertype === 'temp'){
+					aB.tempUserSearches = aB.searchView.toArray();
+				}
 				aB.usertype='google';
 				aB.userid=goog.user.id+'g';
 				aB.username=goog.user.displayName;
 				
 				//now that we have aB.userid, can load up searches
 				aB.fn.Searches();
+
 			});
 		});
 	
@@ -115,8 +121,6 @@ function disconnectUser() {
 			$('#logged-in').hide();
 			$('#signin-panel').hide();
 			$('#logged-out').show();
-			//$('#savedsearches').html('<h3><a href="#" class="signin-link">Sign in</a><br>to see your<br>stations</h3>');
-			
 			$('.signin-link').off();
 			$('.signin-link').click(function(e){
 				e.preventDefault;
@@ -126,16 +130,11 @@ function disconnectUser() {
 					$("#signin-panel").slideUp("slow");
 				}
 			});
-      	
       		console.log('google signed out');
       		location.reload();
 		},
 		error: function(e) {
-			// Handle the error
-			// console.log(e);
-			// You could point users to manually disconnect if unsuccessful
-			// https://plus.google.com/apps
-			
+			// error wut
 		}
 	});
 } 

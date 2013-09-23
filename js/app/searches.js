@@ -26,8 +26,8 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 				// urlRoot: aB.baseurl + "/db/searches"
 				// above not working, fix is: github.com/jashkenas/backbone/issues/789
 				url: function() {
-        	return  aB.baseurl + "/db/searches" + (this.has("id") ? "/" + this.get("id") : "");
-    		}
+        			return  aB.baseurl + "/db/searches" + (this.has("id") ? "/" + this.get("id") : "");
+    			}
 			});
 			
 			//////////////////////////
@@ -53,19 +53,17 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 			var SearchView = Backbone.View.extend({
 				el: $('#savedsearches'),
 				initialize: function(){
-        	this.el = $(this.el);
-        },
+        			this.el = $(this.el);
+        		},
 				events: {
 					'click .asearch': 'doSearch',
-					'click .delete': 'deleteSearch',
-					// Debug
-        	'click #print-collection': 'printCollection'
+					'click .delete': 'deleteSearch'
 				},
 				template: $('#searches-template').html(),
 				render: function(id,query) {
-						var templ = _.template(this.template);
-						var id = 
-						this.el.append(templ({id: id,query: query}));
+					var templ = _.template(this.template);
+					var id = 
+					this.el.append(templ({id: id,query: query}));
 				},
 				// additem function goes here
 				doSearch: function(e){
@@ -79,7 +77,7 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 					aB.searchCollection.each(function(item){
 						aB.searchView.render(item.get('id'),item.get('query'));
 					});
-					this.printCollection();
+					this.toArray();
 				},
 				deleteSearch: function(e) {
 					var id = this.$(e.target).parent('div').data("id");
@@ -90,18 +88,31 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 					aB.searchCollection.remove(id);
 					// Remove from DOM
 					$(e.target).parent('div')
-							.fadeOut(300,function() {
-									$(this).remove();
-							});
+						.fadeOut(300,function() {
+							$(this).remove();
+						});
 				},
-    			printCollection: function(){
-    				searchesArray = [];
+    			toArray: function(){
+    				var searchesArray = [];
         			this.collection.each(function(item) {
-            			console.log(item.get('query'));
             			searchesArray.push(item.get('query'));
         			});
-        	        
-        	        console.log(searchesArray);
+        	        return searchesArray;
+    			},
+    			saveModel: function (query) {
+    				console.log('save ' + query + ' into collection now');
+					var modl = new aB.Search({"query":query });
+					modl.save({},{success: function(model) {
+						console.log('save model to db:success');
+						aB.searchCollection.fetch({
+							success: function() {
+								aB.searchView.showAll();
+								aB.arranger();
+							},
+							error: function() {}
+						});	
+						aB.dontsave = false;	
+					}});
     			}
 			});
 
@@ -118,21 +129,32 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 				if(aB.userid != 'none') {
 					aB.searchCollection.url = aB.baseurl + "/db/searches?filter=userid%3D'" + aB.userid + "'&fields=id,query";
 				}
+			};
+
+			aB.addTempsToUserCollection = function() {
+				if(aB.tempUserSearches && aB.usertype !== 'temp') {
+					var loggedInUserSearches = aB.searchView.toArray();
+					_.each(aB.tempUserSearches, function (query) {
+						if($.inArray(query, loggedInUserSearches) == -1){
+						     aB.searchView.saveModel(query);
+						}
+		            });
+		            aB.tempUserSearches = null;
+				}
 			}
+
 			aB.loadSearches = function(){
 				aB.searchCollection.fetch({
 					success: function() {
 						console.log('backbone got ' + aB.searchCollection.length + ' search records');
 						if(typeof aB.searchView == 'undefined') {
 							aB.searchView = new SearchView({collection: aB.searchCollection});
-							/*aB.searchCollection.each(function(item){
-								aB.searchView.render(item.get('id'),item.get('query'));
-							}); */
 							aB.searchView.showAll();
 						} else {
 							//push new results into existing collectionview
 							aB.searchView.render();
 							aB.searchView.showAll();
+							aB.addTempsToUserCollection();
 						}
 					},
 					error: function() {

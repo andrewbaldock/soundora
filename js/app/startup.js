@@ -9,6 +9,7 @@
 aB={fn:{}};
 aB.baseurl = "https://dsp-soundora.cloud.dreamfactory.com/rest";
 aB.apikey = '?app_name=soundora';
+aB.usertype = 'temp';
 
 //cookie read
 aB.readCookie = function (name) {
