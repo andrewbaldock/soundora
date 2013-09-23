@@ -62,31 +62,34 @@ define(["jquery", "soundcloud", "player", "app/df_auth", "sticky"], function($, 
 							console.log('user looked for: ' + usrInput);
 							aB.writeCookie('skylabfm-last-search', usrInput, 365);
 							
-							var dupe = false
-							_.each(aB.searchCollection.models, function (model) {
-								if(model.attributes.query === usrInput) {
-									dupe = true;
+
+
+				            var timer = setTimeout( function(){  
+					            var dupe = false
+								_.each(aB.searchCollection.models, function (model) {
+									if(model.attributes.query === usrInput) {
+										dupe = true;
+									}
+					            });
+								if(!dupe && !aB.dontsave) {
+									console.log('save ' + usrInput + ' into collection now');
+									var modl = new aB.Search({"query":usrInput });
+									modl.save({},{success: function(model) {
+										console.log('save model to db:success');
+										aB.searchCollection.fetch({
+											success: function() {
+												aB.searchView.showAll();
+												aB.arranger();
+											},
+											error: function() {}
+										});	
+										aB.dontsave = false;	
+									}});
+
+								} else {
+									console.log('DUPE');
 								}
-				            });
-
-							if(!dupe) {
-								console.log('save ' + usrInput + ' into collection now');
-								var modl = new aB.Search({"query":usrInput });
-								modl.save({},{success: function(model) {
-									console.log('save model to db:success');
-									aB.searchCollection.fetch({
-										success: function() {
-											aB.searchView.showAll();
-											aB.arranger();
-										},
-										error: function() {}
-									});		
-								}});
-
-							} else {
-								console.log('DUPE');
-							}
-
+ 							},2000)
 
 				
 							// Show what track is currently playing
@@ -144,10 +147,11 @@ define(["jquery", "soundcloud", "player", "app/df_auth", "sticky"], function($, 
 							require(['player'], function (player) {
 								if (aB.tracks.trk1.kind != undefined) {
 									//expose the player
-									$('#player-wrapper').show('slowest').sticky({topSpacing:2});
+									$('#player-wrapper').show('slowest', 'linear');
 									$('body').addClass('inplay');
 									console.log('readying track ' + aB.tracks.trk1.id);
-									
+
+
 									//play first result
 									aB.fn.updatePlaying(aB.tracks.trk1.id);
 									aB.tracks.played = 1;
@@ -170,12 +174,13 @@ define(["jquery", "soundcloud", "player", "app/df_auth", "sticky"], function($, 
       	
       	//if ?play url parameter is present then autostart
       	var autostart = aB.fn.getUrlParam('play');
-      	if(!autostart) { autostart = aB.readCookie('skylabfm-last-search'); }
+      	//if(!autostart) { autostart = aB.readCookie('skylabfm-last-search'); }
 
 		if(autostart) {
 			autostart = autostart.replaceAll('+', ' ');
 			autostart = autostart.replaceAll('%20', ' ');
 			$('#query').val(autostart);
+			aB.dontsave = true;
 			$('#thequery button').click();
 		} else {
 
@@ -187,7 +192,7 @@ define(["jquery", "soundcloud", "player", "app/df_auth", "sticky"], function($, 
       	
       	console.log('soundcloud loaded');
       	$('#results').show();
-      	
+      	$('#player-wrapper').sticky({topSpacing:2});
       }); //end outer require
   };
 });

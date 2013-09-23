@@ -49,14 +49,15 @@ requirejs.config({
     "baseUrl": "js/lib",
     shim: {   // Using shim we define dependencies between our libraries
     	'underscore': {
-      	exports: '_'
+			exports: '_'
     	},
     	'backbone': {
-      	deps: [
-        	'underscore',
-        	'jquery'
-      	],
-      exports: 'Backbone'
+      		deps: ['underscore','jquery'],
+      		exports: 'Backbone'
+    	},
+    	'sticky': {
+      		deps: ['jquery'],
+      		exports: 'Sticky'
     	}
   	},
     "paths": {
@@ -70,7 +71,6 @@ requirejs.config({
       "sticky" :      "sticky.min"
     }
 });
-
-// Load the main app module to start the app
 ___={_:'s0und'};
+// Load the main app module to start the app
 requirejs(["app/main"]);

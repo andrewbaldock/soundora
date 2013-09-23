@@ -1,6 +1,6 @@
 /* github.com/andrewbaldock/skylabfm */
 
-define(["jquery", "underscore", "app/df_auth", "json2", "player", "backbone", "app/searches",  "app/soundcloud", "sticky"], function($) {
+define(["jquery", "underscore", "app/df_auth", "json2", "player", "backbone", "app/searches",  "app/soundcloud", "sticky"], function($, Sticky) {
     
     $(function() {
     

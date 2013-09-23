@@ -2,7 +2,7 @@
 */
 var goog={};
 goog.clientId = '881156022619';
-goog.apiKey = 'AIzaSyD4ZGwVyyh2RN40PFeifk6QecZvk3O-BGk';
+goog.apiKey = 'AIzaSyCZUmWxd4CMKsK1-sj_8nfaqMrd0-sBgo0';
 goog.scopes = 'https://www.googleapis.com/auth/plus.me https://www.googleapis.com/auth/userinfo.email';
 
 // Use a button to handle authentication the first time.
@@ -12,7 +12,7 @@ function handleClientLoad() {
 }
 
 function checkAuth() {
-	//gapi.auth.authorize({client_id: goog.clientId, scope: goog.scopes, immediate: true}, handleAuthResult);
+	gapi.auth.authorize({client_id: goog.clientId, scope: goog.scopes, immediate: true}, handleAuthResult);
 }
 
 function handleAuthResult(authResult) {
@@ -79,10 +79,10 @@ function googCallback(authResult) {
 		// Successfully authorized
 		// Hide the sign-in button now that the user is authorized, for example:
 		//document.getElementById('signinButton').setAttribute('style', 'display: none');
-
 		$('#logged-out').hide();
 		$('#signin-panel').hide();
 		$('#logged-in').show();
+		handleAuthResult(authResult);
 		goog.token = authResult.access_token;
 		gapi.auth.authorize({client_id: goog.clientId, scope: goog.scopes, immediate: true}, handleAuthResult);
 		console.log('google authenticated');
@@ -102,7 +102,7 @@ function googCallback(authResult) {
 }  
 
 function disconnectUser() {
-	var revokeUrl = 'https://accounts.google.com/o/oauth2/revoke?token=' + goog.token;
+	var revokeUrl = 'http://accounts.google.com/o/oauth2/revoke?token=' + goog.token;
 	$.ajax({
 		type: 'GET',
 		url: revokeUrl,
@@ -112,22 +112,23 @@ function disconnectUser() {
 		success: function(nullResponse) {
 			// Do something now that user is disconnected
 			// The response is always undefined.
-				$('#logged-in').hide();
-				$('#signin-panel').hide();
-				$('#logged-out').show();
-				//$('#savedsearches').html('<h3><a href="#" class="signin-link">Sign in</a><br>to see your<br>stations</h3>');
-				
-				$('.signin-link').off();
-				$('.signin-link').click(function(e){
-					e.preventDefault;
-					if ($("#signin-panel").is(":hidden")) {
-						$("#signin-panel").slideDown("slow");
-					} else {
-						$("#signin-panel").slideUp("slow");
-					}
-				});
+			$('#logged-in').hide();
+			$('#signin-panel').hide();
+			$('#logged-out').show();
+			//$('#savedsearches').html('<h3><a href="#" class="signin-link">Sign in</a><br>to see your<br>stations</h3>');
+			
+			$('.signin-link').off();
+			$('.signin-link').click(function(e){
+				e.preventDefault;
+				if ($("#signin-panel").is(":hidden")) {
+					$("#signin-panel").slideDown("slow");
+				} else {
+					$("#signin-panel").slideUp("slow");
+				}
+			});
       	
-      	console.log('google signed out');
+      		console.log('google signed out');
+      		location.reload();
 		},
 		error: function(e) {
 			// Handle the error

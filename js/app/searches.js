@@ -79,6 +79,7 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 					aB.searchCollection.each(function(item){
 						aB.searchView.render(item.get('id'),item.get('query'));
 					});
+					this.printCollection();
 				},
 				deleteSearch: function(e) {
 					var id = this.$(e.target).parent('div').data("id");
@@ -93,11 +94,15 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 									$(this).remove();
 							});
 				},
-    		printCollection: function(){
-        	this.collection.each(function(item) {
-            console.log(item.get('query'));
-        	});
-    		}
+    			printCollection: function(){
+    				searchesArray = [];
+        			this.collection.each(function(item) {
+            			console.log(item.get('query'));
+            			searchesArray.push(item.get('query'));
+        			});
+        	        
+        	        console.log(searchesArray);
+    			}
 			});
 
 	
@@ -116,22 +121,23 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 			}
 			aB.loadSearches = function(){
 				aB.searchCollection.fetch({
-						success: function() {
-								console.log('backbone got ' + aB.searchCollection.length + ' search records');
-								if(typeof aB.searchView == 'undefined') {
-									aB.searchView = new SearchView({collection: aB.searchCollection});
-									/*aB.searchCollection.each(function(item){
-										aB.searchView.render(item.get('id'),item.get('query'));
-									}); */
-									aB.searchView.showAll();
-								} else {
-									//push new results into existing collectionview
-									aB.searchView.render();
-								}
-						},
-						error: function() {
-								console.log('backbone collection activated: oh noes fetch fail');
+					success: function() {
+						console.log('backbone got ' + aB.searchCollection.length + ' search records');
+						if(typeof aB.searchView == 'undefined') {
+							aB.searchView = new SearchView({collection: aB.searchCollection});
+							/*aB.searchCollection.each(function(item){
+								aB.searchView.render(item.get('id'),item.get('query'));
+							}); */
+							aB.searchView.showAll();
+						} else {
+							//push new results into existing collectionview
+							aB.searchView.render();
+							aB.searchView.showAll();
 						}
+					},
+					error: function() {
+							console.log('backbone collection activated: oh noes fetch fail');
+					}
 				}); 
 			}
 			aB.loadSearches();

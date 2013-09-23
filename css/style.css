@@ -112,6 +112,8 @@ input:focus {
 }
 #spinner {
     display: inline-block;
+    height: 70px;
+    width: 70px;
     background-image: url('../img/spinner.gif');
     background-repeat: no-repeat;
 }
@@ -144,7 +146,7 @@ button:hover {
 }
 #results {
     display: none;
-    padding-bottom: 100px;
+    margin-bottom: 100px;
 }
 .pad {
     height:50px;
@@ -258,8 +260,9 @@ button:active {
 #player-wrapper {
     display: none;
     width: 100%; 
-    height: 168pxpx;
+    height: 170px;
 }
+
 #player {
     display: inline-block;
     height: 168px;
@@ -537,6 +540,9 @@ em#userimg {
     #results {
         width:335px;
     }
+     #player-wrapper-sticky-wrapper, #player-wrapper {
+        height:115px!important;
+    }
     h1 {
         font-size:50px;
     }
@@ -548,10 +554,19 @@ em#userimg {
     #player {
         width:295px;
     }
+    #player iframe {
+        height: 120px;
+    }  
+    body {
+        height:1000px;
+    }
 }
 @media screen and (max-width : 399px) {
     #results {
         width:335px;
+    }
+     #player-wrapper-sticky-wrapper, #player-wrapper {
+        height:115px!important;
     }
     h1 {font-size:45px;}
     #subtitle {
@@ -566,5 +581,10 @@ em#userimg {
     #player {
         width:295px;
     }
-}    }
+    #player iframe {
+        height: 120px;
+    }    
+    body {
+        height:1000px;
+    }
 }
