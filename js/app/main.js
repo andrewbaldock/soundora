@@ -33,7 +33,7 @@ define(["jquery", "underscore", "app/df_auth", "json2", "player", "backbone", "a
       
 			$('.signin-link').off();
 			$('.signin-link').click(function(e){
-				e.preventDefault;
+				e.preventDefault();
 				$("#signin-panel").toggle("slow");
 			});
     	

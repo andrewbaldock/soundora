@@ -1,4 +1,4 @@
-@import url(//fonts.googleapis.com/css?family=Montserrat|Exo:500italic);
+@import url(//fonts.googleapis.com/css?family=Codystar|Montserrat|Exo:500italic);
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css);
 
 a, button, input, img, div {
@@ -18,7 +18,7 @@ html {
 html {
     font-family: 'Montserrat', sans-serif;
     text-align: center;
-    background: url('../img/background-gplaypattern.png') #fff;
+    background: url('../img/low_contrast_linen.png') #fff;
     background-attachment: fixed;
     color: #979797;
     padding:0px;
@@ -41,30 +41,27 @@ a:active {
     width:100%;
 }
 h1, h2, h3, h4, h5 {
-    font-family: 'Exo', sans-serif;
-    color: rgba(0, 172, 226, 0.99);
+    color: rgba(3, 191, 238, 1);
     margin-bottom: -15px;
 }
 h1 {
-    font-size: 60px;
+    font-size: 58px;
     display: inline-block;
-    width: 340px;
-    color: rgba(0, 200, 218, 1);
-    font-weight:500;
-    font-style:italic;
+    width: 396px;
+    color: rgba(255, 255, 255, 1);
+    font-weight: 500;
     margin-top: 7px;
-    bottom: 20px;margin
+    bottom: 20px;
 }
 .inplay h1 {
-    font-size: 70px;
-    margin-top:-4px;
-    margin-bottom: 12px;
-    color:#fff;
+    font-size: 44px;
+    margin-top: 8px;
+    margin-bottom: 18px;
 }
 #subtitle {
     font-size: 24px; 
     font-family: 'Montserrat', sans-serif;
-    color: rgba(0, 200, 218, 1);
+    color: rgba(3, 191, 238, 1);
     line-height: 25px;
     letter-spacing: 3px;
     margin-top:14px;
@@ -120,7 +117,7 @@ input:focus {
 #thequery button {
     width: 50px;
     color: #fff;
-    background-color:  rgba(0, 200, 218, 1);
+    background-color:  rgba(3, 191, 238, 1);
     height: 35px;
     font-size: 25px;
     line-height: 25px;
@@ -132,7 +129,7 @@ button {
     padding-right: 10px;
     padding-left: 10px;
     color: #fff;
-    background-color:  rgba(0, 200, 218, 1);
+    background-color:  rgba(3, 191, 238, 1);
     height: 34px;
     font-size: 25px;
     line-height: 27px;
@@ -277,10 +274,10 @@ header {
     min-height: 30px;
 }
 .isPlaying {
-    background-color: rgba(0, 172, 226, 1.00);
+    background-color: rgba(3, 191, 238, 1);
     height: 112px;
     width: 112px;
-    border: 8px solid  rgba(0, 200, 218, 1);
+    border: 8px solid  rgba(3, 191, 238, 1);
     box-shadow:0px 0px 10px #fff;
 }
 #spacer {
@@ -306,7 +303,10 @@ footer #credits {
     height: 10px;
     padding-top: 2px;
     padding-bottom: 8px;
-    background-color: rgba(0, 172, 226,0.76);
+    background-color: rgba(3, 191, 238, 0.40);
+}
+footer #credits a {
+    color:#ddd;
 }
 footer #pad {
     width: 100%;
@@ -392,9 +392,10 @@ em#userimg {
     color: #FFFFFF;
     font-size: 14px;
     line-height: 28px;
-    background-color: rgba(29, 219, 255, 0.75);
+    background-color:  rgba(3, 191, 238, 0.70);
     text-align: left;
     padding-left: 18px;
+    text-shadow: 1px 1px #666;
 }
 .asearch-wrap{
     display:inline-block;

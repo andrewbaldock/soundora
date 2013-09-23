@@ -151,7 +151,8 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 						console.log('backbone got ' + aB.searchCollection.length + ' search records');
 						if(typeof aB.searchView == 'undefined') {
 							aB.searchView = new SearchView({collection: aB.searchCollection});
-							aB.searchView.showAll();
+							if(aB.usertype === 'temp') 
+								aB.searchView.showAll();
 						} else {
 							//push new results into existing collectionview
 							aB.searchView.render();
