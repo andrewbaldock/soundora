@@ -108,8 +108,9 @@ define(["jquery", "soundcloud", "player", "app/df_auth", "sticky"], function($, 
 								$(nextId).click();
 							}
 						
-						  $('.track').click(function(){
-						  	
+						  $('.track').click(function(event){
+						  		if(event)
+						  			event.preventDefault();
 								var Id = this.id.replace('trk','');
 								var url = 'http://api.soundcloud.com/tracks/' + Id;
 								console.log(this);

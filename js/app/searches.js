@@ -67,6 +67,7 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 				},
 				// additem function goes here
 				doSearch: function(e){
+					e.preventDefault();
 					var query = this.$(e.target).text();
 					console.log('play station ' + query);
 					$('input#query').val( query);
@@ -80,6 +81,7 @@ define(["jquery", "json2", "backbone", "app/df_auth"], function($,Backbone,df_au
 					this.toArray();
 				},
 				deleteSearch: function(e) {
+					e.preventDefault();
 					var id = this.$(e.target).parent('div').data("id");
 					var query = this.$(e.target).text();
 					console.log('deleting id ' + id);
