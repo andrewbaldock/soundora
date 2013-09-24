@@ -34,8 +34,15 @@ define(["jquery", "underscore", "app/df_auth", "json2", "player", "backbone", "a
 			$('.signin-link').off();
 			$('.signin-link').click(function(e){
 				e.preventDefault();
-				$("#signin-panel").toggle("slow");
+				$("#signin-panel").toggle("slow", 'linear');
 			});
+
+			$('#logout').off();
+			$('#logout').click(function(e){
+				e.preventDefault();
+				disconnectUser();
+			});
+
     	
       aB.fn.soundcloud();
       aB.fn.df_auth();

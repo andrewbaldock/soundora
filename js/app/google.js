@@ -107,8 +107,7 @@ function googCallback(authResult) {
 	}
 }  
 
-function disconnectUser(event) {
-	event.preventDefault();
+function disconnectUser() {
 	var revokeUrl = 'http://accounts.google.com/o/oauth2/revoke?token=' + goog.token;
 	$.ajax({
 		type: 'GET',

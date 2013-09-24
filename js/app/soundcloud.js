@@ -88,6 +88,7 @@ define(["jquery", "soundcloud", "player", "app/df_auth", "sticky"], function($, 
 
 								} else {
 									console.log('DUPE');
+									aB.dontsave = false;
 								}
  							},2000)
 
@@ -159,8 +160,8 @@ define(["jquery", "soundcloud", "player", "app/df_auth", "sticky"], function($, 
 									
 									var firstSong = '#trk' + aB.tracks.trk1.id;
 									$(firstSong).click();
-								 }
-							 });//end require;
+								}
+							});//end require;
 							
 						}); // end SC.get	
 						

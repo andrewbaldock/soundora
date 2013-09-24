@@ -69,7 +69,8 @@ requirejs.config({
       "backbone" : 	  "//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min",
       "soundcloud" :  "//connect.soundcloud.com/sdk",
       "player" : 	  "https://w.soundcloud.com/player/api",
-      "sticky" :      "sticky.min"
+      "sticky" :      "sticky.min",
+      "spin" :        "spin.min"
     }
 });
 ___={_:'s0und'};
