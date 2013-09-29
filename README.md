@@ -1,4 +1,6 @@
 soundora
 ========
 
-"soundcloud radio" - a pandora clone built with the soundcloud api
+there were too many things out there called soundora already so this has moved to 'skylabfm'
+
+http://github.com/andrewbaldock/skylabfm
